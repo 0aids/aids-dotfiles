@@ -36,7 +36,6 @@
     settings = {
       sort_dir_first = true;
     };
-    shellWrapperName = "y";
   };
 
   programs.bash = {

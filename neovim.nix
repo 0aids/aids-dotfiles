@@ -22,6 +22,7 @@
     };
 
     options = {
+      autochdir = true;
       smoothscroll = true;
       tabstop = 2;
       smartindent = true;

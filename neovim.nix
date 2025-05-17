@@ -54,6 +54,9 @@
           })
         '';
       };
+      treesitter-make = {
+        package = pkgs.vimPlugins.nvim-treesitter-parsers.make;
+      };
     };
 
     keymaps = [

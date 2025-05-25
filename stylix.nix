@@ -9,7 +9,7 @@
     enable = true;
     polarity = "dark";
     autoEnable = true;
-    image = ./wall/gruv1.jpg;
+    image = ./wall/xilmO1.jpg;
     base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-material-dark-hard.yaml";
     fonts.sizes.terminal = 10;
 

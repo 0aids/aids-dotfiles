@@ -1,41 +1,50 @@
 {
   inputs = {
+    # This is pointing to an unstable release.
+    # If you prefer a stable release instead, you can this to the latest number shown here: https://nixos.org/download
+    # i.e. nixos-24.11
+    # Use `nix flake update` to update the flake to the latest revision of the chosen release channel.
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager";
     nvf.url = "github:notashelf/nvf";
+    stylix.url = "github:danth/stylix";
+    stylix.inputs.nixpkgs.follows = "nixpkgs";
   };
-
   outputs = inputs @ {
+    self,
     nixpkgs,
     home-manager,
     nvf,
+    stylix,
     ...
   }: let
     system = "x86_64-linux";
-    pkgs = nixpkgs.legacyPackages.${system};
-
-    customNeovim = nvf.lib.neovimConfiguration {
+    pkgs = import nixpkgs {
+      inherit system;
+    };
+    custonNeovim = nvf.lib.neovimConfiguration {
       inherit pkgs;
       modules = [./neovim.nix];
     };
   in {
-    # This will make the package available as a flake output under 'packages'
-    packages.${system}.my-neovim = customNeovim.neovim;
-
-    # Example Home-Manager configuration using the configured Neovim package
+    nixosConfigurations.nix-virt = nixpkgs.lib.nixosSystem {
+      modules = [./configuration.nix];
+    };
     homeConfigurations = {
-      aids = home-manager.lib.homeManagerConfiguration {
-        # ...
+      nix-aids = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         modules = [
           ./home.nix
-          # This will make Neovim available to users using the Home-Manager
-          # configuration. To make the package available to all users, prefer
-          # environment.systemPackages in your NixOS configuration.
-          {home.packages = [customNeovim.neovim];}
+          ./hyprland.nix
+          stylix.homeModules.stylix
+          ./stylix.nix
+          {home.packages = [custonNeovim.neovim];}
         ];
+        extraSpecialArgs = {
+          inherit system;
+          inherit inputs;
+        };
       };
     };
   };
 }
-

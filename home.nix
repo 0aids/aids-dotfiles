@@ -3,11 +3,12 @@
   config,
   pkgs,
   lib,
+  inputs,
   ...
 }: {
-  home.username = "aids";
-  home.homeDirectory = "/home/aids";
-  home.stateVersion = "24.11"; # Please read the comment before changing.
+  home.username = "nix-aids";
+  home.homeDirectory = "/home/nix-aids";
+  home.stateVersion = "25.05"; # Please read the comment before changing.
 
   home.shellAliases = {
     ls = "ls --color=auto -a";
@@ -17,9 +18,35 @@
 
   home.packages = with pkgs; [
     ghostscript # Used for previewing pdfs
+    nwg-panel
+    wl-clipboard
+    grim
+    slurp
+    kdePackages.dolphin
+    xfce.thunar
   ];
 
   targets.genericLinux.enable = true;
+
+  home.pointerCursor.enable = true;
+  programs.gh = {
+    enable = true;
+  };
+
+  home.file.nwg-panel-style = {
+    enable = true;
+    source = ./statusbar/nwg-panel-style.css;
+    target = ".config/nwg-panel/style.css";
+  };
+  home.file.nwg-panel-config = {
+    enable = true;
+    source = ./statusbar/nwg-panel-config.json;
+    target = ".config/nwg-panel/config";
+  };
+
+  qt = {
+    style.name = lib.mkForce "kvantum";
+  };
 
   home.file = {
   };
@@ -30,6 +57,7 @@
   };
 
   programs.home-manager.enable = true;
+  # programs.dconf.enable = true;
   programs.yazi = {
     enable = true;
     enableBashIntegration = true;
@@ -47,10 +75,8 @@
       ''
       (builtins.readFile
         ./bash/tmux_bashrc.sh)
-      ''
-        tmux_open
-      ''
     ];
+    # profileExtra = builtins.readFile ./bash/profile;
   };
   programs.starship = {
     enable = true;
@@ -79,17 +105,7 @@
         owner = "mrjones2014";
         repo = "smart-splits.nvim";
         rev = "master";
-        sha256 = "SAJnzXaV5l4djBgP7kNPn2g2jNUrb9OCeKqmv+Nmj9U=";
-      };
-    };
-    gruvboxed_cat = pkgs.tmuxPlugins.mkTmuxPlugin {
-      pluginName = "tmux-gruvbox";
-      version = "";
-      src = pkgs.fetchFromGitHub {
-        owner = "z3z1ma";
-        repo = "tmux-gruvbox";
-        rev = "main";
-        sha256 = "wBhOKM85aOcV4jD7wdyB/zXKDdhODE5k1iud+cm6Wk0=";
+        sha256 = "f9LmtN2cR40A+97mebBgjHwXfYCz/CNx4u5z180DwxM=";
       };
     };
   in {
@@ -108,6 +124,14 @@
         plugin = tmux-sessionx;
         extraConfig = "set -g @sessionx-bind '/'";
       }
+      {
+        plugin = resurrect;
+        extraConfig = "";
+      }
+      {
+        plugin = continuum;
+        extraConfig = "set -g @continuum-restore 'on'";
+      }
     ];
     keyMode = "vi";
     mouse = true;
@@ -115,4 +139,40 @@
     extraConfig = builtins.readFile ./tmux/tmux.conf;
     prefix = "C-a";
   };
+
+  programs.qutebrowser.enable = true;
+  programs.qutebrowser.greasemonkey = [
+    (
+      pkgs.writeText
+      "youtube-block.js"
+      (builtins.readFile ./qutebrowser/youtube-block.js)
+    )
+  ];
+  programs.qutebrowser.settings = {
+    colors.webpage.darkmode.enabled = true;
+    colors.webpage.bg = "#101010";
+    fonts.default_size = lib.mkForce "7pt";
+    tabs.show = "switching";
+    tabs.show_switching_delay = 2000;
+    tabs.position = "top";
+    completion.shrink = true;
+  };
+  programs.qutebrowser.keyBindings = {
+    normal = {
+      "J" = "tab-prev";
+      "K" = "tab-next";
+    };
+    insert = {
+      "<Escape>" = "mode-leave ;; jseval -q document.activeElement.blur()";
+    };
+  };
+
+  programs.btop = {
+    enable = true;
+    settings = {
+      vim_keys = true;
+      update_ms = 1000;
+    };
+  };
+  programs.ripgrep.enable = true;
 }

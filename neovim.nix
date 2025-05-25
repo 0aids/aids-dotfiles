@@ -6,6 +6,17 @@
 }: {
   config.vim = {
     luaConfigRC.starter = builtins.readFile ./nvim/rc.lua;
+    # WARNING: Tinymist is installed globally via pacman. I can't figure out how to pass the setting into the way which nvf wants it to be done, so it has been hardcoded.
+    luaConfigPost = ''
+      require("lspconfig")["tinymist"].setup({
+        settings = {
+                formatterMode = "typstyle",
+                exportPdf = "onType",
+                semanticTokens = "disable",
+        },
+      })
+    ''; # TODO: Maybe make a github issue about not being able to pass settings in to tinymist's setup.
+
     autocmds = [
     ];
     theme = {
@@ -53,9 +64,6 @@
               default_amount = 6,
           })
         '';
-      };
-      treesitter-make = {
-        package = pkgs.vimPlugins.nvim-treesitter-parsers.make;
       };
     };
 
@@ -224,30 +232,30 @@
     };
 
     notes = {
-      neorg = {
-        enable = true;
-        treesitter.enable = true;
-        treesitter.norgPackage = pkgs.vimPlugins.nvim-treesitter.builtGrammars.norg;
-        setupOpts.load = {
-          "core.defaults".enable = true;
-          "core.concealer".config.icon_preset = "diamond";
-          "core.qol.todo_items".config.order = [
-            ["undone" " "]
-            ["pending" "-"]
-            ["done" "x"]
-          ];
-          "core.dirman".config = {
-            workspaces.notes = "~/notes";
-            default_workspace = "notes";
-          };
-          # "core.esupports.metagen".config = {
-          #   author = "Aids";
-          #   type = "auto";
-          #   timezone = "implicit-local";
-          #   update_date = true;
-          # };
-        };
-      };
+      # neorg = {
+      #   enable = true;
+      #   treesitter.enable = true;
+      #   # treesitter.norgPackage = pkgs.vimPlugins.nvim-treesitter.builtGrammars.norg;
+      #   setupOpts.load = {
+      #     "core.defaults".enable = true;
+      #     "core.concealer".config.icon_preset = "diamond";
+      #     "core.qol.todo_items".config.order = [
+      #       ["undone" " "]
+      #       ["pending" "-"]
+      #       ["done" "x"]
+      #     ];
+      #     "core.dirman".config = {
+      #       workspaces.notes = "~/notes";
+      #       default_workspace = "notes";
+      #     };
+      #     # "core.esupports.metagen".config = {
+      #     #   author = "Aids";
+      #     #   type = "auto";
+      #     #   timezone = "implicit-local";
+      #     #   update_date = true;
+      #     # };
+      #   };
+      # };
       todo-comments.enable = true;
     };
 
@@ -258,7 +266,7 @@
       icons.enable = true;
       statusline.enable = false;
       animate = {
-        enable = true;
+        enable = false;
         setupOpts = {
           cursor.enable = false;
           resize.enable = false;
@@ -311,7 +319,7 @@
 
     statusline = {
       lualine.enable = true;
-      lualine.activeSection.b = [
+      lualine.activeSection.c = [
         ''
                     {
             function()
@@ -322,7 +330,45 @@
             cond = function()
               return vim.fn.reg_recording() ~= ""
             end,
-          },
+          }
+        ''
+        ''
+          {
+            "diff",
+            colored = false,
+            diff_color = {
+              -- Same color values as the general color option can be used here.
+              added    = 'DiffAdd',    -- Changes the diff's added color
+              modified = 'DiffChange', -- Changes the diff's modified color
+              removed  = 'DiffDelete', -- Changes the diff's removed color you
+            },
+            symbols = {added = '+', modified = '~', removed = '-'}, -- Changes the diff symbols
+            separator = {right = ''}
+          }
+        ''
+      ];
+      lualine.activeSection.b = [
+        ''
+          {
+            "filetype",
+            colored = true,
+            icon_only = true,
+            icon = { align = 'left' }
+          }
+        ''
+        ''
+          {
+            "filename",
+            symbols = {modified = ' ', readonly = ' '},
+            separator = {right = ''}
+          }
+        ''
+        ''
+          {
+            "",
+            draw_empty = true,
+            separator = { left = '', right = '' }
+          }
         ''
       ];
     };
@@ -330,17 +376,48 @@
     languages = {
       enableTreesitter = true;
       enableFormat = true;
+      enableDAP = true;
 
       bash.enable = true;
+
       python.enable = true;
+      python.dap.enable = true;
+
       markdown.enable = true;
+
       nix.enable = true;
       nix.format.enable = true;
+
       lua.enable = true;
+
       clang.enable = true;
+      clang.dap.enable = true;
+
       typst.enable = true;
       typst.format.enable = true;
       typst.lsp.enable = true;
+    };
+
+    debugger.nvim-dap.enable = true;
+    debugger.nvim-dap.ui.enable = true;
+    debugger.nvim-dap.mappings = let
+      dKey = "<leader>d";
+    in {
+      continue = dKey + "c";
+      goDown = dKey + "j";
+      goUp = dKey + "k";
+      hover = dKey + "h";
+      restart = dKey + "re";
+      runLast = dKey + ".";
+      runToCursor = dKey + "rc";
+      stepBack = dKey + "ba";
+      stepInto = dKey + "I";
+      stepOut = dKey + "ou";
+      stepOver = dKey + "ov";
+      terminate = dKey + "te";
+      toggleBreakpoint = dKey + "br";
+      toggleDapUI = dKey + "tu";
+      toggleRepl = dKey + "rp";
     };
 
     autocomplete.blink-cmp = {
@@ -349,10 +426,6 @@
 
     formatter.conform-nvim = {
       enable = true;
-    };
-    terminal.toggleterm = {
-      enable = true;
-      # Default keybind is C-t
     };
   };
 }

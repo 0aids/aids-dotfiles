@@ -14,6 +14,8 @@
     ls = "ls --color=auto -a";
     grep = "grep --color=auto";
     pow = "upower -i /org/freedesktop/UPower/devices/battery_BAT0";
+    hrs = "home-manager switch --flake ~/.dotfiles/";
+    nrs = "sudo nixos-rebuild switch --flake ~/.dotfiles/";
   };
 
   home.packages = with pkgs; [
@@ -24,6 +26,8 @@
     slurp
     kdePackages.dolphin
     xfce.thunar
+    libsixel
+    hyprdim
   ];
 
   targets.genericLinux.enable = true;
@@ -44,8 +48,20 @@
     target = ".config/nwg-panel/config";
   };
 
+  home.file.scripts = {
+    enable = true;
+    source = ./scripts;
+    target = ".config/scripts/";
+  };
+
+  programs.waybar = {
+    enable = true;
+    settings = builtins.fromJSON (builtins.readFile ./statusbar/waybar.json);
+    style = lib.mkAfter (builtins.readFile ./statusbar/waybar.css);
+  };
+
   qt = {
-    style.name = lib.mkForce "kvantum";
+    # style.name = lib.mkForce "kvantum";
   };
 
   home.file = {

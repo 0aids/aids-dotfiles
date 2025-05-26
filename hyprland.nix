@@ -22,7 +22,7 @@
     width = "100%";
     height = 13;
     horizontal = true;
-    font-size = lib.mkForce 7;
+    font-size = lib.mkForce 8;
     prompt-text = "tofi: ";
     outline-width = 0;
     border-width = 0;
@@ -36,6 +36,7 @@
   services.hypridle.enable = true;
   services.cliphist.enable = true;
   services.dunst.enable = true;
+  services.dunst.settings = builtins.fromTOML (builtins.readFile ./notifier/dunst.toml);
   # programs.kanshi.enable = true;
   wayland.windowManager.hyprland.enable = true; # enable Hyprland
   wayland.windowManager.hyprland.package = null;
@@ -130,12 +131,12 @@
       ''$mainMod SHIFT, S, exec, grim -g "$(slurp)" - | wl-copy''
     ];
     bindel = [
-      ",XF86AudioRaiseVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ +5% "
-      ",XF86AudioLowerVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ -5%"
-      ",XF86AudioMute, exec, pactl set-sink-mute @DEFAULT_SINK@ toggle"
-      ",XF86AudioMicMute, exec, pactl set-sink-mute @DEFAULT_SINK@ toggle"
-      ",XF86MonBrightnessUp, exec, brightnessctl s 5%+ -s"
-      ",XF86MonBrightnessDown, exec, brightnessctl s 5%- -s"
+      ",XF86AudioRaiseVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ +5% && ~/.config/scripts/audio"
+      ",XF86AudioLowerVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ -5% && ~/.config/scripts/audio"
+      ",XF86AudioMute, exec, pactl set-sink-mute @DEFAULT_SINK@ toggle && ~/.config/scripts/audio"
+      ",XF86AudioMicMute, exec, pactl set-sink-mute @DEFAULT_SINK@ toggle && ~/.config/scripts/audio"
+      ",XF86MonBrightnessUp, exec, brightnessctl s 5%+ -s && ~/.config/scripts/brightness"
+      ",XF86MonBrightnessDown, exec, brightnessctl s 5%- -s && ~/.config/scripts/brightness"
     ];
     bindl = [
       ", XF86AudioNext, exec, playerctl next"
@@ -165,6 +166,8 @@
       "dunst"
       "fcitx5"
       "hyprctl setcursor 'Capitaine Cursors (Gruvbox)' 18"
+      "hyprdim"
+      "sleep 0.1 && waybar"
     ];
     misc = {
       vfr = true;

@@ -1,0 +1,119 @@
+[
+  {
+    "clock": {
+      "format-alt": "{:%a, %d. %b  %H:%M}"
+    },
+    "height": 14,
+    "spacing": 4,
+    "hyprland/window": {
+      "icon-size": 10,
+      "icon": true,
+      "max-length": 30
+    },
+    "layer": "bottom",
+    "modules-left" : [
+      "hyprland/workspaces",
+      "hyprland/window"
+    ],
+    "modules-center": [
+      "clock"
+    ],
+    "modules-right": [
+      "tray",
+      "backlight",
+      "wireplumber",
+      "battery",
+      "network"
+    ],
+    "position": "bottom",
+
+    "wireplumber": {
+      "format": "{icon} {volume}% ",
+      "tooltip": false,
+      "width": "30",
+      "format-muted": "<s>{icon} X% </s>",
+      "format-icons": [
+        "V:"
+      ]
+    },
+
+    "bluetooth": {
+      "format": " ",
+      "format-disabled": "󰂳",
+      "format-connected": "󰂱 {num_connections}",
+      "tooltip-format": " {device_alias}",
+      "tooltip-format-connected": "{device_enumerate}",
+      "tooltip-format-enumerate-connected": " {device_alias} 󰂄{device_battery_percentage}%",
+      "tooltip": true
+    },
+    "tray": {
+      "icon-size": 10,
+      "spacing": 4
+    },
+
+
+    "backlight": {
+      "format": "{percent}% {icon}",
+      "format-icons": ["","","","","","","","","","","","","","",""]
+    },
+    "battery": {
+      "interval": 5,
+      "align": 0,
+      "rotate": 0,
+      "bat": "BAT0",
+      "adapter": "ACAD",
+      "full-at": 100,
+      "design-capacity": false,
+      "states": {
+        "good": 95,
+        "warning": 30,
+        "critical": 15
+      },
+      "format": "{icon} {capacity}%",
+      "format-charging": " {capacity}%",
+      "format-plugged": "󱘖 {capacity}%",
+      "format-alt-click": "click",
+      "format-full": "{icon} Full",
+      "format-alt": "{icon} {time}",
+      "format-icons": [
+        "󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"
+      ],
+      "format-time": "{H}h {M}min",
+      "tooltip": true,
+      "tooltip-format": "{timeTo} {power}w"
+    },
+
+    
+    "clock": {
+      "format": "{:%d/%m %a %H:%M}",
+      "tooltip-format": "<tt><small>{calendar}</small></tt>"
+    },
+    "cpu": {
+      "interval": 1,
+      "min-length": 5,
+      "format": "{icon0}{icon1}{icon2}{icon3} {usage:>2}% 󰍛",
+      "format-icons": [
+        "▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"
+      ],
+      "on-click-right": "gnome-system-monitor"
+    },
+    "network": {
+      "format": "{ifname} ",
+      "format-wifi": "{icon} ",
+      "format-ethernet": "󰌘 ",
+      "format-disconnected": "󰈂 ",
+      "tooltip-format": "{ipaddr}  {bandwidthUpBits}  {bandwidthDownBits}",
+      "format-linked": "󰈁 {ifname} (No IP) ",
+      "tooltip-format-wifi": "{essid} {icon} {signalStrength}%",
+      "tooltip-format-ethernet": "{ifname} 󰌘",
+      "tooltip-format-disconnected": "󰈂 Disconnected",
+      "max-length": 30,
+      "format-icons": [
+        "󰤯", "󰤟", "󰤢", "󰤥", "󰤨"
+      ]
+    }
+
+
+  }
+]
+

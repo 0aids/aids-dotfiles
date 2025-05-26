@@ -9,13 +9,17 @@
     enable = true;
     polarity = "dark";
     autoEnable = true;
-    image = ./wall/xilmO1.jpg;
+    image = ./wall/image.png;
     base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-material-dark-hard.yaml";
-    fonts.sizes.terminal = 10;
+    fonts.sizes = {
+      terminal = 10;
+      desktop = 10;
+      popups = 8;
+    };
 
     fonts.monospace = {
       package = pkgs.nerd-fonts.blex-mono;
-      name = "BlexMono Nerd Font Mono Medium";
+      name = "BlexMono Nerd Font Medium";
     };
 
     cursor.package = pkgs.capitaine-cursors-themed;
@@ -28,6 +32,12 @@
       # foot.enable = true;
       # nvf.enable = true;
       # tofi.enable = true;
+      waybar.addCss = false;
+    };
+    iconTheme = {
+      enable = true;
+      package = pkgs.gruvbox-plus-icons;
+      dark = "Gruvbox-Plus-Dark";
     };
   };
 }

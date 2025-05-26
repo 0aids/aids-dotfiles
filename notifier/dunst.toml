@@ -1,0 +1,46 @@
+# https://dunst-project.org/documentation/
+[global]
+    allow_markup = true
+    format = "<b>%s</b>\n%b"
+    sort = true
+    indicate_hidden = true
+    alignment = "center"
+    bounce_freq = 0
+    show_age_threshold = 60
+    word_wrap = true
+    ignore_newline = false
+    width = "(0, 400)"
+    height = '(0, 150)'
+    offset = 5
+    origin = "bottom-center"
+    transparency = 1
+    idle_threshold = 120
+    monitor = 0
+    follow = "mouse"
+    sticky_history = true
+    line_height = 0
+    separator_height = 2
+    padding = 2
+    horizontal_padding = 4
+    startup_notification = false
+    # https://github.com/knopwob/dunst/issues/26#issuecomment-36159395
+    #icon_position = center
+    #icon_folders = /usr/share/icons/elementary/actions/16/
+
+    frame_width = 1
+
+# [shortcuts] Does falset work in wayland. 
+#     close = ctrl+space
+#     close_all = ctrl+shift+space
+#     history = ctrl+grave
+#     context = ctrl+shift+period
+
+[urgency_low]
+    timeout = 2
+
+[urgency_normal]
+    timeout = 5
+
+[urgency_critical]
+    timeout = 0
+

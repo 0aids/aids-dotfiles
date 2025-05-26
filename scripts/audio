@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+re='^[0-9]+$'
+volume=$(pactl get-sink-volume @DEFAULT_SINK@ | grep -oP '\d+%' | head -n 1 | awk '{gsub("%",""); print $1}')
+mute=$(pactl get-sink-mute @DEFAULT_SINK@ | grep -o '\byes\b\|\bno\b')
+msgTag="volume-change"
+if [[ $volume -gt 0 ]]; then
+  if ! [[ $mute == "no" ]]; then
+    dunstify -a "changeVolume" -u low -i audio-volume-high -h string:x-dunst-stack-tag:$msgTag \
+      -h int:value:"$volume" "Muted: ${volume}%"
+    exit 0
+  fi
+fi
+if ! [[ $mute == "no" ]]; then
+  # eww update "volume=*"
+  dunstify -a "changeVolume" -u low -i audio-volume-muted -h string:x-dunst-stack-tag:$msgTag "Volume muted"
+
+else
+  # eww update "volume=$volume"
+  dunstify -a "changeVolume" -u low -i audio-volume-high -h string:x-dunst-stack-tag:$msgTag \
+    -h int:value:"$volume" "Volume: ${volume}%"
+  exit 0
+fi
+#eww update "volume=$volume"
+# if [[ $volume]]

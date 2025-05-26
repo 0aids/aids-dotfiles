@@ -1,0 +1,129 @@
+/*@define-color base00 #202020; @define-color base01 #2a2827; @define-color base02 #504945; @define-color base03 #5a524c;
+@define-color base04 #bdae93; @define-color base05 #ddc7a1; @define-color base06 #ebdbb2; @define-color base07 #fbf1c7;
+
+@define-color base08 #ea6962; @define-color base09 #e78a4e; @define-color base0A #d8a657; @define-color base0B #a9b665;
+@define-color base0C #89b482; @define-color base0D #7daea3; @define-color base0E #d3869b; @define-color base0F #bd6f3e;
+*/
+
+* {
+  font-family: "BlexMono Nerd Font Medium";
+  font-size: 11px;
+  margin:-1px;
+  min-height: 14px;
+  border-radius: 0px;
+}
+
+window#waybar, tooltip {
+    background: alpha(@base00, 1.000000);
+    color: @base05;
+}
+
+tooltip {
+    border-color: @base0D;
+}
+#wireplumber,
+#pulseaudio,
+#sndio {
+    padding: 0 2px;
+}
+#wireplumber.muted,
+#pulseaudio.muted,
+#sndio.muted {
+    padding: 0 2px;
+}
+#upower,
+#battery {
+    padding: 0 5px;
+}
+#upower.charging,
+#battery.Charging {
+    padding: 0 5px;
+}
+#network {
+    padding: 0 5px;
+}
+#network.disconnected {
+    padding: 0 5px;
+}
+#user {
+    padding: 0 5px;
+}
+#clock {
+    padding: 0 0px;
+}
+#backlight {
+    padding: 0 5px;
+}
+#cpu {
+    padding: 0 5px;
+}
+#disk {
+    padding: 0 5px;
+}
+#idle_inhibitor {
+    padding: 0 5px;
+}
+#temperature {
+    padding: 0 5px;
+}
+#mpd {
+    padding: 0 5px;
+}
+#language {
+    padding: 0 5px;
+}
+#keyboard-state {
+    padding: 0 5px;
+}
+#memory {
+    padding: 0 5px;
+}
+#window {
+    padding: 0 1px;
+}
+#workspaces {
+  padding: 0px;
+}
+
+#calendar {
+  color: @base06;
+}
+tooltip * {
+  color: @base06;
+  font-size: 12px;
+}
+
+
+button {
+  padding:0px;
+}
+
+.modules-left #workspaces button {
+    border-bottom: 1px solid transparent;
+    padding: 0px;
+    margin:0px;
+}
+.modules-left #workspaces button.focused,
+.modules-left #workspaces button.active {
+    background-color: @base01;
+    border-bottom: 4px solid @base05;
+    padding: 0px;
+    margin: 0px;
+}
+.modules-center #workspaces button {
+    border-bottom: 1px solid transparent;
+}
+.modules-center #workspaces button.focused,
+.modules-center #workspaces button.active {
+    border-bottom: 1px solid @base05;
+}
+.modules-right #workspaces button {
+    border-bottom: 1px solid transparent;
+}
+.modules-right #workspaces button.focused,
+.modules-right #workspaces button.active {
+    border-bottom: 1px solid @base05;
+}
+
+
+

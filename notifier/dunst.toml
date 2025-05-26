@@ -23,6 +23,7 @@
     padding = 2
     horizontal_padding = 4
     startup_notification = false
+    markup = "full"
     # https://github.com/knopwob/dunst/issues/26#issuecomment-36159395
     #icon_position = center
     #icon_folders = /usr/share/icons/elementary/actions/16/

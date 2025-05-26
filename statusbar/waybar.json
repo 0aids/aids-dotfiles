@@ -69,14 +69,13 @@
         "warning": 30,
         "critical": 15
       },
-      "format": "{icon} {capacity}%",
-      "format-charging": " {capacity}%",
-      "format-plugged": "󱘖 {capacity}%",
-      "format-alt-click": "click",
-      "format-full": "{icon} Full",
-      "format-alt": "{icon} {time}",
+      "format": "{icon} {capacity}% ",
+      "format-charging": "  {capacity}% ",
+      "format-plugged": " 󱘖 {capacity}% ",
+      "format-full": " {icon} 100% ",
+      "format-alt": " {icon} {time}",
       "format-icons": [
-        "󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"
+        "B:"
       ],
       "format-time": "{H}h {M}min",
       "tooltip": true,

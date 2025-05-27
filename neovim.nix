@@ -232,30 +232,30 @@
     };
 
     notes = {
-      # neorg = {
-      #   enable = true;
-      #   treesitter.enable = true;
-      #   # treesitter.norgPackage = pkgs.vimPlugins.nvim-treesitter.builtGrammars.norg;
-      #   setupOpts.load = {
-      #     "core.defaults".enable = true;
-      #     "core.concealer".config.icon_preset = "diamond";
-      #     "core.qol.todo_items".config.order = [
-      #       ["undone" " "]
-      #       ["pending" "-"]
-      #       ["done" "x"]
-      #     ];
-      #     "core.dirman".config = {
-      #       workspaces.notes = "~/notes";
-      #       default_workspace = "notes";
-      #     };
-      #     # "core.esupports.metagen".config = {
-      #     #   author = "Aids";
-      #     #   type = "auto";
-      #     #   timezone = "implicit-local";
-      #     #   update_date = true;
-      #     # };
-      #   };
-      # };
+      neorg = {
+        enable = true;
+        treesitter.enable = true;
+        treesitter.norgPackage = pkgs.tree-sitter-grammars.tree-sitter-norg;
+        setupOpts.load = {
+          "core.defaults".enable = true;
+          "core.concealer".config.icon_preset = "diamond";
+          "core.qol.todo_items".config.order = [
+            ["undone" " "]
+            ["pending" "-"]
+            ["done" "x"]
+          ];
+          "core.dirman".config = {
+            workspaces.notes = "~/notes";
+            default_workspace = "notes";
+          };
+          # "core.esupports.metagen".config = {
+          #   author = "Aids";
+          #   type = "auto";
+          #   timezone = "implicit-local";
+          #   update_date = true;
+          # };
+        };
+      };
       todo-comments.enable = true;
     };
 

@@ -28,8 +28,48 @@
     xfce.thunar
     libsixel
     hyprdim
+    tinymist
   ];
 
+  i18n.inputMethod = {
+    type = "fcitx5";
+    enable = true;
+    fcitx5.addons = with pkgs; [
+      fcitx5-mozc
+      fcitx5-gtk
+    ];
+    fcitx5.waylandFrontend = true;
+    fcitx5 = {
+      settings.globalOptions = {
+        HotKey = {
+          EnumerateWithTriggerKeys = true;
+          "TriggerKeys/0" = "Control+Space";
+          "EnumerateGroupForwardKeys/0" = "VoidSymbol";
+          "EnumerateGroupBackwardKeys/0" = "VoidSymbol";
+          "ActivateKeys/0" = "VoidSymbol";
+          "DecativateKeys/0" = "VoidSymbol";
+          "PrevPage/0" = "VoidSymbol";
+          "NextPage/0" = "VoidSymbol";
+          "PrevCandidate/0" = "Shift+Tab";
+          "NextCandidate/0" = "Tab";
+          "TogglePreedit/0" = "VoidSymbol";
+        };
+        Behaviour = {
+          ActiveByDefault = false;
+        };
+      };
+      settings.inputMethod = {
+        GroupOrder."0" = "Default";
+        "Groups/0" = {
+          Name = "Default";
+          "Default Layout" = "us";
+          DefaultIM = "mozc";
+        };
+        "Groups/0/Items/0".Name = "keyboard-us";
+        "Groups/0/Items/1".Name = "mozc";
+      };
+    };
+  };
   targets.genericLinux.enable = true;
 
   home.pointerCursor.enable = true;
@@ -163,6 +203,11 @@
       "youtube-block.js"
       (builtins.readFile ./qutebrowser/youtube-block.js)
     )
+    # (
+    #   pkgs.writeText
+    #   "dark-reader.js"
+    #   (builtins.readFile ./qutebrowser/dark-reader.js)
+    # )
   ];
   programs.qutebrowser.settings = {
     colors.webpage.darkmode.enabled = true;
@@ -197,4 +242,6 @@
     overrideDevices = false;
     overrideFolders = false;
   };
+  # Should come with plugins
+  programs.zathura.enable = true;
 }

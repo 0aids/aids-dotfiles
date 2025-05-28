@@ -13,8 +13,8 @@
     base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-material-dark-hard.yaml";
     fonts.sizes = {
       terminal = 10;
-      desktop = 10;
-      popups = 8;
+      desktop = 6;
+      popups = 6;
     };
 
     fonts.monospace = {

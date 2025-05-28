@@ -396,6 +396,12 @@
       typst.enable = true;
       typst.format.enable = true;
       typst.lsp.enable = true;
+      typst.extensions.typst-preview-nvim = {
+        enable = true;
+        setupOpts = {
+          invert_colors = ''{"rest": "always", "image": "never"}'';
+        };
+      };
     };
 
     debugger.nvim-dap.enable = true;

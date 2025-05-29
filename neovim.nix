@@ -397,9 +397,9 @@
       typst.format.enable = true;
       typst.lsp.enable = true;
       typst.extensions.typst-preview-nvim = {
-        enable = true;
+        enable = false;
         setupOpts = {
-          invert_colors = ''{"rest": "always", "image": "never"}'';
+          invert_colors = ''{"rest": "auto", "image": "auto"}'';
         };
       };
     };

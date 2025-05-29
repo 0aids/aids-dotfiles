@@ -225,7 +225,7 @@
 
       background = lib.mkMerge [
         {
-          # path = lib.mkForce "screenshot";
+          path = lib.mkForce "screenshot";
           contrast = 0.5;
           blur_passes = 2;
           blur_size = 8;
@@ -237,7 +237,7 @@
       input-field = lib.mkMerge [
         {
           size = "200, 40";
-          position = "0, -80";
+          position = "0, -60";
           monitor = "";
           rounding = 0;
           fail_timeout = 200;
@@ -246,7 +246,7 @@
           fade_on_empty = false;
           outline_thickness = 0;
           placeholder_text = ''Password...'';
-          shadow_passes = 2;
+          shadow_passes = 0;
         }
       ];
     }

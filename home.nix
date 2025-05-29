@@ -29,6 +29,8 @@
     libsixel
     hyprdim
     tinymist
+    deepin.dde-file-manager
+    fortune
   ];
 
   i18n.inputMethod = {
@@ -92,6 +94,11 @@
     enable = true;
     source = ./scripts;
     target = ".config/scripts/";
+  };
+  home.file.fortune = {
+    enable = true;
+    source = ./fortune;
+    target = ".config/fortune/";
   };
 
   programs.waybar = {
@@ -203,11 +210,11 @@
       "youtube-block.js"
       (builtins.readFile ./qutebrowser/youtube-block.js)
     )
-    # (
-    #   pkgs.writeText
-    #   "dark-reader.js"
-    #   (builtins.readFile ./qutebrowser/dark-reader.js)
-    # )
+    (
+      pkgs.writeText
+      "darkmode-blacklist.js"
+      (builtins.readFile ./qutebrowser/darkmode-blacklist.js)
+    )
   ];
   programs.qutebrowser.settings = {
     colors.webpage.darkmode.enabled = true;

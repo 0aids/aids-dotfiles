@@ -1,0 +1,101 @@
+@base00: #202020;
+@base01: #2a2827;
+@base02: #504945;
+@base03: #5a524c;
+@base04: #bdae93;
+@base05: #ddc7a1;
+@base06: #ebdbb2;
+@base07: #fbf1c7;
+
+@base08: #ea6962;
+@base09: #e78a4e;
+@base0A: #d8a657;
+@base0B: #a9b665;
+@base0C: #89b482;
+@base0D: #7daea3;
+@base0E: #d3869b;
+@base0F: #bd6f3e;
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: BlexMono Nerd Font Mono;
+    font-size: 10pt;
+    display: block;
+    color: @base06;
+}
+head { display: none; }
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: @base00;
+}
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-self: center;
+    margin: auto;
+}
+
+h1 {
+    font-size: 30pt;
+}
+
+nav {
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+}
+
+nav > * {
+    font-weight: bold;
+    font-size: 15pt;
+}
+
+div {
+    margin: 30px;
+    padding: 20px;
+    border: 2px solid @base0B;
+    min-width: 200px;
+}
+
+nav > * > h2 {
+    font-size: 20pt;
+    text-align: center;
+    margin: 0px 0px 30px 0px;
+}
+
+.links {
+    padding: 10px;
+}
+
+.links > li {
+    margin: 10px 0px;
+}
+
+.links > * > a:before {
+    content: "";
+    display: block;
+    border: 2px solid @base0B;
+    width: 5px;
+    height: 5px;
+    margin-right: 10px;
+    border-radius: 50%;
+}
+
+.links > * > a {
+    display: flex;
+    justify-content: start;
+    flex-direction: row;
+    align-items: center;
+
+    text-decoration: none;
+    font-size: 14pt;
+}
+
+

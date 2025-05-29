@@ -16,6 +16,7 @@
     pow = "upower -i /org/freedesktop/UPower/devices/battery_BAT0";
     hrs = "home-manager switch --flake ~/.dotfiles/";
     nrs = "sudo nixos-rebuild switch --flake ~/.dotfiles/";
+    cat = "bat";
   };
 
   home.packages = with pkgs; [
@@ -31,6 +32,7 @@
     tinymist
     deepin.dde-file-manager
     fortune
+    bat
   ];
 
   i18n.inputMethod = {
@@ -79,16 +81,16 @@
     enable = true;
   };
 
-  home.file.nwg-panel-style = {
-    enable = true;
-    source = ./statusbar/nwg-panel-style.css;
-    target = ".config/nwg-panel/style.css";
-  };
-  home.file.nwg-panel-config = {
-    enable = true;
-    source = ./statusbar/nwg-panel-config.json;
-    target = ".config/nwg-panel/config";
-  };
+  # home.file.nwg-panel-style = {
+  #   enable = true;
+  #   source = ./statusbar/nwg-panel-style.css;
+  #   target = ".config/nwg-panel/style.css";
+  # };
+  # home.file.nwg-panel-config = {
+  #   enable = true;
+  #   source = ./statusbar/nwg-panel-config.json;
+  #   target = ".config/nwg-panel/config";
+  # };
 
   home.file.scripts = {
     enable = true;
@@ -111,7 +113,10 @@
     # style.name = lib.mkForce "kvantum";
   };
 
-  home.file = {
+  home.file.start_page = {
+    enable = true;
+    source = ./start_page;
+    target = ".config/start_page/";
   };
 
   home.sessionVariables = {
@@ -224,7 +229,9 @@
     tabs.show_switching_delay = 2000;
     tabs.position = "top";
     completion.shrink = true;
+    url.start_pages = "~/.config/start_page/index.html";
   };
+  programs.qutebrowser.searchEngines = {"DEFAULT" = "https://google.com/search?hl=en&q={}";};
   programs.qutebrowser.keyBindings = {
     normal = {
       "J" = "tab-prev";

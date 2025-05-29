@@ -1,0 +1,72 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: BlexMono Nerd Font Mono;
+  font-size: 10pt;
+  display: block;
+  color: #ebdbb2;
+}
+head {
+  display: none;
+}
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: #202020;
+}
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-self: center;
+  margin: auto;
+}
+h1 {
+  font-size: 30pt;
+}
+nav {
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+}
+nav > * {
+  font-weight: bold;
+  font-size: 15pt;
+}
+div {
+  margin: 30px;
+  padding: 20px;
+  border: 2px solid #a9b665;
+  min-width: 200px;
+}
+nav > * > h2 {
+  font-size: 20pt;
+  text-align: center;
+  margin: 0px 0px 30px 0px;
+}
+.links {
+  padding: 10px;
+}
+.links > li {
+  margin: 10px 0px;
+}
+.links > * > a:before {
+  content: "";
+  display: block;
+  border: 2px solid #a9b665;
+  width: 5px;
+  height: 5px;
+  margin-right: 10px;
+  border-radius: 50%;
+}
+.links > * > a {
+  display: flex;
+  justify-content: start;
+  flex-direction: row;
+  align-items: center;
+  text-decoration: none;
+  font-size: 14pt;
+}

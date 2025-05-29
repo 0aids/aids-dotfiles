@@ -36,7 +36,43 @@
   services.hypridle.enable = true;
   services.cliphist.enable = true;
   services.dunst.enable = true;
-  services.dunst.settings = builtins.fromTOML (builtins.readFile ./notifier/dunst.toml);
+  # services.dunst.settings = builtins.fromTOML (builtins.readFile ./notifier/dunst.toml);
+  services.dunst.settings = {
+    global = {
+      alignment = "center";
+      allow_markup = true;
+      bounce_freq = 0;
+      follow = "mouse";
+      format = "<b>%s</b>\n%b";
+      frame_width = 0;
+      height = "(0, 150)";
+      horizontal_padding = 4;
+      idle_threshold = 120;
+      ignore_newline = false;
+      indicate_hidden = true;
+      line_height = 0;
+      progress_bar_height = 5;
+      progress_bar_frame_width = 0;
+      highlight = "#${config.lib.stylix.colors.base05}";
+      markup = "full";
+      monitor = 0;
+      offset = 5;
+      origin = "bottom-center";
+      padding = 2;
+      separator_height = 2;
+      show_age_threshold = 60;
+      sort = true;
+      font = lib.mkForce "Monospace 8";
+      startup_notification = false;
+      sticky_history = true;
+      transparency = 1;
+      width = "(0, 400)";
+      word_wrap = true;
+    };
+    urgency_critical = {timeout = 0;};
+    urgency_low = {timeout = 2;};
+    urgency_normal = {timeout = 5;};
+  };
   # programs.kanshi.enable = true;
   wayland.windowManager.hyprland.enable = true; # enable Hyprland
   wayland.windowManager.hyprland.package = null;
@@ -176,4 +212,65 @@
 
   # Optional, hint Electron apps to use Wayland:
   home.sessionVariables.NIXOS_OZONE_WL = "1";
+
+  programs.hyprlock.enable = true;
+  programs.hyprlock.settings = lib.mkMerge [
+    {
+      general = {
+        disable_loading_bar = true;
+        grace = 0;
+        hide_cursor = true;
+        no_fade_in = false;
+      };
+
+      background = lib.mkMerge [
+        {
+          # path = lib.mkForce "screenshot";
+          contrast = 0.5;
+          blur_passes = 2;
+          blur_size = 8;
+          vibrancy = 0.1;
+          vibrancy_darkness = 0.0;
+        }
+      ];
+
+      input-field = lib.mkMerge [
+        {
+          size = "200, 40";
+          position = "0, -80";
+          monitor = "";
+          rounding = 0;
+          fail_timeout = 200;
+          dots_center = true;
+          dots_size = 0.2;
+          fade_on_empty = false;
+          outline_thickness = 0;
+          placeholder_text = ''Password...'';
+          shadow_passes = 2;
+        }
+      ];
+    }
+  ];
+  programs.hyprlock.sourceFirst = false;
+  programs.hyprlock.extraConfig = ''
+    label {
+      monitor =
+      text = <span foreground='##${config.lib.stylix.colors.base04}'>$TIME</span>
+      font_size = 80
+      font_family = BlexMono Nerd Font
+      position = 0, 75
+      halign = center
+      valign = center
+    }
+
+    label {
+      # color = "rgba(${config.lib.stylix.colors.base04}1E)"
+      text = cmd[update:100000] echo "<span foreground='##${config.lib.stylix.colors.base04}'>$(date +'%a %D')</span>"
+      font_size = 20
+      font_family = BlexMono Nerd Font
+      position = 0, 0
+      halign = center
+      valign = center
+    }
+  '';
 }

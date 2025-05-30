@@ -39,7 +39,13 @@
     deepin.dde-file-manager
     fortune
   ];
+  programs.mpv.enable = true;
   programs.bat.enable = true;
+  programs.direnv = {
+    enable = true;
+    enableBashIntegration = true;
+    nix-direnv.enable = true;
+  };
 
   i18n.inputMethod = {
     type = "fcitx5";

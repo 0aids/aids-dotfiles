@@ -164,7 +164,9 @@
       "$mainMod, T, togglesplit,"
       "$mainMod, SPACE, exec, pkill tofi-run || hyprctl dispatch exec \"$( tofi-run --fuzzy-match=true --drun-launch=true )\""
       "$mainMod, V, exec, pkill tofi || cliphist list | tofi | cliphist decode | wl-copy | wl-paste"
+      # ''$mainMod CTRL, Z, exec, ~/.config/scripts/toggle-gaps''
       ''$mainMod SHIFT, S, exec, grim -g "$(slurp)" - | wl-copy''
+      ''$mainMod, BACKSPACE, exec, ~/.config/scripts/tofi-power-menu''
     ];
     bindel = [
       ",XF86AudioRaiseVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ +5% && ~/.config/scripts/audio"
@@ -209,6 +211,7 @@
       vfr = true;
     };
   };
+  wayland.windowManager.hyprland.extraConfig = builtins.readFile ./hypr/hyprland-extra.conf;
 
   # Optional, hint Electron apps to use Wayland:
   home.sessionVariables.NIXOS_OZONE_WL = "1";
@@ -225,12 +228,12 @@
 
       background = lib.mkMerge [
         {
-          path = lib.mkForce "screenshot";
-          contrast = 0.5;
-          blur_passes = 2;
-          blur_size = 8;
-          vibrancy = 0.1;
-          vibrancy_darkness = 0.0;
+          # path = lib.mkForce "screenshot";
+          # contrast = 0.5;
+          # blur_passes = 2;
+          # blur_size = 8;
+          # vibrancy = 0.1;
+          # vibrancy_darkness = 0.0;
         }
       ];
 

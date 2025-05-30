@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+# Get the output of the command
+output=$(hyprctl --batch "getoption general:gaps_out")
+
+# Extract the line containing the gap values
+gap_line=$(echo "$output" | grep "custom type")
+
+# Extract the four numbers
+read -r g1 g2 g3 g4 <<<$(echo "$gap_line" | grep -oE '[0-9]+' | xargs)
+
+echo $g1 $g2 $g3 $g4
+
+# Check if any of the gaps is greater than 0
+if ((g1 > 1 || g2 > 1 || g3 > 1 || g4 > 1)); then
+  hyprctl --batch "keyword general:gaps_in -1 ; keyword general:gaps_out -1,-1,0,-1"
+  # pkill -SIGUSR1 waybar
+  dunstify "Gaps off" -u low
+else
+  hyprctl --batch "keyword general:gaps_in 20 ; keyword general:gaps_out 40"
+  # pkill -SIGUSR1 waybar
+  dunstify "Gaps on" -u low
+fi

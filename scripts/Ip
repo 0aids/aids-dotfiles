@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+# 2. Detect MIME type
+mimetype=$(wl-paste | file --mime-type -b -)
+
+# 3. Get file extension from MIME type (e.g., image/png -> png)
+ext=$(echo "$mimetype" | awk -F/ '{print $2}')
+echo "Detected filetype: $ext"
+
+# 4. Prompt user for filename using tofi
+read -p "Enter a filename: " -r filename
+
+# If cancelled or empty input, exit
+[ -z "$filename" ] && echo "Cancelled." && exit 1
+
+# 5. Append extension if not already present
+if [[ "$filename" != *.* ]]; then
+  filename="${filename}.${ext}"
+fi
+
+# 6. Save to current directory
+wl-paste >"$filename"
+echo "Saved as $filename"

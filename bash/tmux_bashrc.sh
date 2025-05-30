@@ -1,7 +1,8 @@
 alias fzf_floating="fzf --height 40% --layout reverse --border"
 
 # Yazi but allows changing cwd
-function y() {
+# F for file manager
+function F() {
   local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
   yazi "$@" --cwd-file="$tmp"
   if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then

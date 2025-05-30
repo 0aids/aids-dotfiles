@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+
+options="lock
+suspend
+shutdown
+reboot
+"
+shutdownOpts="No, Cancel
+Yes, Shutdown"
+rebootOpts="No, Cancel
+Yes, Reboot "
+
+chosen="$(echo "$options" | tofi)"
+
+case $chosen in
+"shutdown")
+  yes="$(echo -e "$shutdownOpts" | tofi)"
+  case $yes in
+  "Yes, Shutdown")
+    dunstify "Shutting Down"
+    shutdown now
+    ;;
+  "No, Cancel")
+    dunstify "Cancelled"
+    ;;
+  esac
+  ;;
+"reboot")
+  yes="$(echo -e "$rebootOpts" | tofi)"
+  case $yes in
+  "Yes, Reboot")
+    dunstify "Rebooting"
+    reboot
+    ;;
+  "No, Cancel")
+    dunstify "Cancelled"
+    ;;
+  esac
+  ;;
+"suspend")
+  loginctl suspend
+  ;;
+"lock")
+  hyprlock
+  ;;
+esac

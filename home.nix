@@ -9,7 +9,13 @@
   home.username = "nix-aids";
   home.homeDirectory = "/home/nix-aids";
   home.stateVersion = "25.05"; # Please read the comment before changing.
+  # Adding scripts to path
+  home.sessionPath = [
+    "$HOME/.config/scripts"
+  ];
+  home.shell.enableBashIntegration = true;
 
+  # Ip is to paste images into cwd.
   home.shellAliases = {
     ls = "ls --color=auto -a";
     grep = "grep --color=auto";
@@ -32,8 +38,8 @@
     tinymist
     deepin.dde-file-manager
     fortune
-    bat
   ];
+  programs.bat.enable = true;
 
   i18n.inputMethod = {
     type = "fcitx5";
@@ -231,6 +237,7 @@
     completion.shrink = true;
     url.start_pages = "~/.config/start_page/index.html";
   };
+  # NOTE: Duck duck go allows for better moving around in the search page.
   programs.qutebrowser.searchEngines = {"DEFAULT" = "https://google.com/search?hl=en&q={}";};
   programs.qutebrowser.keyBindings = {
     normal = {

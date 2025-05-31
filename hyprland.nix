@@ -162,7 +162,7 @@
       "$mainMod, F, fullscreenstate, 0 2"
       "$mainMod, O, setprop, active opaque toggle"
       "$mainMod, T, togglesplit,"
-      "$mainMod, SPACE, exec, pkill tofi-run || hyprctl dispatch exec \"$( tofi-run --fuzzy-match=true --drun-launch=true )\""
+      "$mainMod, SPACE, exec, pkill tofi-drun || hyprctl dispatch exec \"$( tofi-drun --fuzzy-match=true --drun-launch=true )\""
       "$mainMod, V, exec, pkill tofi || cliphist list | tofi | cliphist decode | wl-copy | wl-paste"
       # ''$mainMod CTRL, Z, exec, ~/.config/scripts/toggle-gaps''
       ''$mainMod SHIFT, S, exec, grim -g "$(slurp)" - | wl-copy''
@@ -211,6 +211,7 @@
       vfr = true;
     };
   };
+  # Submap keymaps in this file
   wayland.windowManager.hyprland.extraConfig = builtins.readFile ./hypr/hyprland-extra.conf;
 
   # Optional, hint Electron apps to use Wayland:

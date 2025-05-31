@@ -20,28 +20,29 @@
     ],
     "modules-right": [
       "tray",
-      "backlight",
       "wireplumber",
       "battery",
+      "backlight",
+      "bluetooth",
       "network"
     ],
     "position": "bottom",
 
     "wireplumber": {
-      "format": "{icon} {volume}% ",
+      "format": "{icon} {volume}%",
       "tooltip": false,
-      "width": "30",
-      "format-muted": "<s>{icon} X% </s>",
+      "width": "10",
+      "format-muted": "<s>{icon} X%</s>",
       "format-icons": [
         "V:"
       ]
     },
 
     "bluetooth": {
-      "format": " ",
+      "format": "󰂲",
       "format-disabled": "󰂳",
-      "format-connected": "󰂱 {num_connections}",
-      "tooltip-format": " {device_alias}",
+      "format-connected": "󰂱",
+      "tooltip-format": " Disconnected",
       "tooltip-format-connected": "{device_enumerate}",
       "tooltip-format-enumerate-connected": " {device_alias} 󰂄{device_battery_percentage}%",
       "tooltip": true
@@ -53,13 +54,15 @@
 
 
     "backlight": {
-      "format": "{percent}% {icon}",
+      "format": "{icon}",
+      "tooltip-format": "Brightness: {percent}%",
       "format-icons": ["","","","","","","","","","","","","","",""]
     },
     "battery": {
       "interval": 5,
       "align": 0,
       "rotate": 0,
+      "width": 10,
       "bat": "BAT0",
       "adapter": "ACAD",
       "full-at": 100,
@@ -69,10 +72,10 @@
         "warning": 30,
         "critical": 15
       },
-      "format": "{icon} {capacity}% ",
-      "format-charging": "  {capacity}% ",
-      "format-plugged": " 󱘖 {capacity}% ",
-      "format-full": " {icon} 100% ",
+      "format": "{icon} {capacity}%",
+      "format-charging": "  {capacity}%",
+      "format-plugged": " 󱘖 {capacity}%",
+      "format-full": " {icon} 100%",
       "format-alt": " {icon} {time}",
       "format-icons": [
         "B:"

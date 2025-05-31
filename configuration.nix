@@ -17,17 +17,26 @@
   # Use the systemd-boot EFI boot loader.
   # boot.loader.systemd-boot.enable = true;
   boot.loader.grub.device = "nodev";
+  # boot.loader.grub.theme = "${pkgs.libsForQt5.breeze-grub}/grub/themes/breeze";
+  boot.consoleLogLevel = 2;
+  # boot.loader.grub.splashImage = ./wall/black.png;
   boot.loader.grub.efiSupport = true;
-  boot.loader.efi.efiSysMountPoint = "/boot/efi";
+  boot.loader.efi.efiSysMountPoint = "/boot";
   boot.loader.efi.canTouchEfiVariables = true;
+
+  fileSystems = {
+    "/".options = ["compress=zstd"];
+    "/home".options = ["compress=zstd"];
+    "/nix".options = ["compress=zstd" "noatime"];
+  };
 
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  networking.hostName = "nix-virt"; # Define your hostname.
+  networking.hostName = "zooker"; # Define your hostname.
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  # networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
+  networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
 
   # Set your time zone.
   time.timeZone = "Pacific/Auckland";
@@ -69,7 +78,7 @@
   # services.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.nix-aids = {
+  users.users.aids = {
     isNormalUser = true;
     extraGroups = ["wheel" "audio"]; # Enable ‘sudo’ for the user.
     packages = with pkgs; [
@@ -101,10 +110,18 @@
   services.openssh = {
     enable = true;
     settings = {
-      AllowUsers = ["nix-aids"];
+      AllowUsers = ["aids"];
       PasswordAuthentication = true;
       PermitRootLogin = "yes";
     };
+  };
+  services.tlp.enable = true;
+
+  services.undervolt = {
+    enable = false;
+    # coreOffset = -100;
+    # gpuOffset = -100;
+    # analogioOffset = -100;
   };
   programs.ssh.startAgent = true;
   programs.hyprland.enable = true;

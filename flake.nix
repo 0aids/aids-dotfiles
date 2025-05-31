@@ -27,18 +27,27 @@
       modules = [./neovim.nix];
     };
   in {
-    nixosConfigurations.nix-virt = nixpkgs.lib.nixosSystem {
-      modules = [./configuration.nix];
+    nixosConfigurations.zooker = nixpkgs.lib.nixosSystem {
+      system = system;
+      modules = [
+        stylix.nixosModules.stylix
+        ./nixos-stylix.nix
+        ./configuration.nix
+      ];
     };
     homeConfigurations = {
-      nix-aids = home-manager.lib.homeManagerConfiguration {
+      aids = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         modules = [
           ./home.nix
           ./hyprland.nix
-          stylix.homeModules.stylix
+          stylix.nixosModules.stylix
           ./stylix.nix
-          {home.packages = [custonNeovim.neovim];}
+          {
+            home.packages = [
+              custonNeovim.neovim
+            ];
+          }
         ];
         extraSpecialArgs = {
           inherit system;

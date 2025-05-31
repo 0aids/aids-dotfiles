@@ -6,8 +6,8 @@
   inputs,
   ...
 }: {
-  home.username = "nix-aids";
-  home.homeDirectory = "/home/nix-aids";
+  home.username = "aids";
+  home.homeDirectory = "/home/aids";
   home.stateVersion = "25.05"; # Please read the comment before changing.
   # Adding scripts to path
   home.sessionPath = [
@@ -38,6 +38,7 @@
     tinymist
     deepin.dde-file-manager
     fortune
+    brightnessctl
   ];
   programs.mpv.enable = true;
   programs.bat.enable = true;
@@ -185,7 +186,7 @@
         owner = "mrjones2014";
         repo = "smart-splits.nvim";
         rev = "master";
-        sha256 = "f9LmtN2cR40A+97mebBgjHwXfYCz/CNx4u5z180DwxM=";
+        sha256 = "hcGjCWm50LZu2NOxTqxZkZqPEpcn0hfVipeYrDkN/3g=";
       };
     };
   in {

@@ -1,30 +1,32 @@
-# TODO: Split this configuration cause it's a fucking mess!!!
 {
+  config,
   pkgs,
   lib,
+  inputs,
   ...
 }: {
-  config.vim = {
+  programs.nvf = {
+    enable = true;
+    # your settings need to go into the settings attribute set
+    # most settings are documented in the appendix
+  };
+  programs.nvf.settings.vim = {
+    viAlias = true;
+    vimAlias = true;
     luaConfigRC.starter = builtins.readFile ./nvim/rc.lua;
     # WARNING: Tinymist is installed globally via pacman. I can't figure out how to pass the setting into the way which nvf wants it to be done, so it has been hardcoded.
     luaConfigPost = ''
       require("lspconfig")["tinymist"].setup({
-        settings = {
-                formatterMode = "typstyle",
-                exportPdf = "onType",
-                semanticTokens = "disable",
-        },
-      })
+          settings = {
+          formatterMode = "typstyle",
+          exportPdf = "onType",
+          semanticTokens = "disable",
+          },
+          })
     ''; # TODO: Maybe make a github issue about not being able to pass settings in to tinymist's setup.
 
     autocmds = [
     ];
-    theme = {
-      enable = true;
-      name = "gruvbox";
-      style = "dark";
-      transparent = true;
-    };
     diagnostics = {
       enable = true;
       config = {
@@ -55,7 +57,6 @@
       mapleader = " ";
       maplocalleader = ",";
     };
-
     extraPlugins = {
       smart-splits = {
         package = pkgs.vimPlugins.smart-splits-nvim;
@@ -222,8 +223,6 @@
       }
     ];
 
-    viAlias = true;
-    vimAlias = true;
     lsp = {
       enable = true;
       formatOnSave = true;

@@ -22,10 +22,10 @@
     pkgs = import nixpkgs {
       inherit system;
     };
-    custonNeovim = nvf.lib.neovimConfiguration {
-      inherit pkgs;
-      modules = [./neovim.nix];
-    };
+    # custonNeovim = nvf.lib.neovimConfiguration {
+    #   inherit pkgs;
+    #   modules = [./neovim.nix];
+    # };
   in {
     nixosConfigurations.zooker = nixpkgs.lib.nixosSystem {
       system = system;
@@ -41,13 +41,15 @@
         modules = [
           ./home.nix
           ./hyprland.nix
-          stylix.nixosModules.stylix
-          ./stylix.nix
-          {
-            home.packages = [
-              custonNeovim.neovim
-            ];
-          }
+          stylix.homeModules.stylix
+          ./home-stylix.nix
+          nvf.homeManagerModules.default
+          ./neovim.nix
+          # {
+          #   home.packages = [
+          #     custonNeovim.neovim
+          #   ];
+          # }
         ];
         extraSpecialArgs = {
           inherit system;

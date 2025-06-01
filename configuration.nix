@@ -14,12 +14,9 @@
   ];
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
-  # Use the systemd-boot EFI boot loader.
-  # boot.loader.systemd-boot.enable = true;
+  nix.settings.trusted-users = ["root" "aids"];
   boot.loader.grub.device = "nodev";
-  # boot.loader.grub.theme = "${pkgs.libsForQt5.breeze-grub}/grub/themes/breeze";
   boot.consoleLogLevel = 2;
-  # boot.loader.grub.splashImage = ./wall/black.png;
   boot.loader.grub.efiSupport = true;
   boot.loader.efi.efiSysMountPoint = "/boot";
   boot.loader.efi.canTouchEfiVariables = true;
@@ -34,8 +31,8 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking.hostName = "zooker"; # Define your hostname.
+
   # Pick only one of the below networking options.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
 
   # Set your time zone.
@@ -59,30 +56,13 @@
     };
   };
 
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Select internationalisation properties.
-  # i18n.defaultLocale = "en_US.UTF-8";
-  # console = {
-  #   font = "Lat2-Terminus16";
-  #   keyMap = "us";
-  #   useXkbConfig = true; # use xkb.options in tty.
-  # };
-
-  # Enable CUPS to print documents.
-  # services.printing.enable = true;
-
   # Enable touchpad support (enabled default in most desktopManager).
-  # services.libinput.enable = true;
+  services.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.aids = {
     isNormalUser = true;
     extraGroups = ["wheel" "audio"]; # Enable ‘sudo’ for the user.
-    packages = with pkgs; [
-    ];
   };
 
   # programs.firefox.enable = true;
@@ -117,14 +97,47 @@
   };
   services.tlp.enable = true;
 
-  services.undervolt = {
-    enable = false;
-    # coreOffset = -100;
-    # gpuOffset = -100;
-    # analogioOffset = -100;
-  };
   programs.ssh.startAgent = true;
   programs.hyprland.enable = true;
+
+  ########
+  # VFIO #
+  ########
+  boot.kernelModules = [
+    "vfio_pci"
+    "vfio"
+    "vfio_iommu_type1"
+    "vfio_virqfd"
+
+    "nvidia"
+    "nvidia_modeset"
+    "nvidia_uvm"
+    "nvidia_drm"
+  ];
+  boot.blacklistedKernelModules = ["nouveau"];
+  boot.kernelParams = [
+    "intel_iommu=on"
+    "vfio-pci.ids=10de:1cbb,10de:0fb9"
+  ];
+  programs.virt-manager.enable = true;
+  users.groups.libvirtd.members = ["aids"];
+
+  virtualisation.libvirtd = {
+    enable = true;
+
+    qemu = {
+      package = pkgs.qemu_kvm;
+
+      ovmf.enable = true;
+
+      ovmf.packages = [pkgs.OVMFFull.fd];
+
+      swtpm.enable = true;
+
+      runAsRoot = false;
+    };
+  };
+  virtualisation.spiceUSBRedirection.enable = true;
 
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.

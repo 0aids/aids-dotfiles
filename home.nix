@@ -17,7 +17,7 @@
 
   # Ip is to paste images into cwd.
   home.shellAliases = {
-    ls = "ls --color=auto -a";
+    ls = "ls --color=auto";
     grep = "grep --color=auto";
     pow = "upower -i /org/freedesktop/UPower/devices/battery_BAT0";
     hrs = "home-manager switch --flake ~/.dotfiles/";
@@ -32,6 +32,8 @@
     grim
     slurp
     kdePackages.dolphin
+    devenv
+    cachix
     xfce.thunar
     libsixel
     hyprdim

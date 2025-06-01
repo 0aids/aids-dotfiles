@@ -8,7 +8,7 @@ reboot
 shutdownOpts="No, Cancel
 Yes, Shutdown"
 rebootOpts="No, Cancel
-Yes, Reboot "
+Yes, Reboot"
 
 chosen="$(echo "$options" | tofi)"
 

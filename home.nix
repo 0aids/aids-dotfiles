@@ -41,6 +41,7 @@
     deepin.dde-file-manager
     fortune
     brightnessctl
+    vesktop
   ];
 
   programs.mpv.enable = true;
@@ -97,21 +98,16 @@
     enable = true;
   };
 
-  # home.file.nwg-panel-style = {
-  #   enable = true;
-  #   source = ./statusbar/nwg-panel-style.css;
-  #   target = ".config/nwg-panel/style.css";
-  # };
-  # home.file.nwg-panel-config = {
-  #   enable = true;
-  #   source = ./statusbar/nwg-panel-config.json;
-  #   target = ".config/nwg-panel/config";
-  # };
-
   home.file.scripts = {
     enable = true;
     source = ./scripts;
     target = ".config/scripts/";
+  };
+
+  home.file.vesktop-theme = {
+    enable = true;
+    source = ./discord/system24.css;
+    target = ".config/vesktop/themes/system24.theme.css";
   };
   home.file.fortune = {
     enable = true;

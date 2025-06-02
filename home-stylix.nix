@@ -21,6 +21,7 @@ in {
         # nvf.enable = true;
         # tofi.enable = true;
         waybar.addCss = false;
+        vencord.extraCss = builtins.readFile ./discord/system24.css;
       };
 
       iconTheme = {

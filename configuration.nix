@@ -16,10 +16,27 @@
   nix.settings.experimental-features = ["nix-command" "flakes"];
   nix.settings.trusted-users = ["root" "aids"];
   boot.loader.grub.device = "nodev";
+  boot.loader.grub.theme = pkgs.minimal-grub-theme;
+  boot.loader.grub.backgroundColor = "#000000";
+  boot.loader.grub.splashImage = null;
   boot.consoleLogLevel = 2;
+  # Enable "Silent boot"
+  boot.initrd.verbose = false;
   boot.loader.grub.efiSupport = true;
   boot.loader.efi.efiSysMountPoint = "/boot";
   boot.loader.efi.canTouchEfiVariables = true;
+  services.greetd.enable = true;
+  services.greetd.settings = {
+    default_session = {
+      command = "${pkgs.greetd.tuigreet}/bin/tuigreet --cmd Hyprland";
+    };
+  };
+  services.greetd.package = pkgs.greetd.tuigreet;
+  boot.plymouth = {
+    enable = true;
+    themePackages = with pkgs; [plymouth-blahaj-theme];
+    theme = "blahaj";
+  };
 
   fileSystems = {
     "/".options = ["compress=zstd"];
@@ -27,15 +44,12 @@
     "/nix".options = ["compress=zstd" "noatime"];
   };
 
-  # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking.hostName = "zooker"; # Define your hostname.
 
-  # Pick only one of the below networking options.
   networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
 
-  # Set your time zone.
   time.timeZone = "Pacific/Auckland";
 
   security.rtkit.enable = true;
@@ -56,34 +70,28 @@
     };
   };
 
-  # Enable touchpad support (enabled default in most desktopManager).
   services.libinput.enable = true;
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.aids = {
     isNormalUser = true;
     extraGroups = ["wheel" "audio"]; # Enable ‘sudo’ for the user.
   };
 
-  # programs.firefox.enable = true;
   programs.dconf.enable = true;
 
-  # List packages installed in system profile.
-  # You can use https://search.nixos.org/ to find more packages (and options).
   environment.systemPackages = with pkgs; [
-    neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    neovim
+    hyprpolkitagent
     pulseaudioFull
     file
   ];
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
+  fonts.packages = with pkgs; [
+    nerd-fonts.hack
+    nerd-fonts."m+"
+    nerd-fonts.tinos
+    nerd-fonts.fira-mono
+    nerd-fonts.jetbrains-mono
+  ];
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
@@ -98,7 +106,14 @@
   services.tlp.enable = true;
 
   programs.ssh.startAgent = true;
-  programs.hyprland.enable = true;
+  xdg.portal = {
+    enable = true;
+    extraPortals = with pkgs; [xdg-desktop-portal-hyprland];
+  };
+  programs.hyprland = {
+    enable = true;
+    xwayland.enable = true;
+  };
 
   ########
   # VFIO #
@@ -116,6 +131,8 @@
   ];
   boot.blacklistedKernelModules = ["nouveau"];
   boot.kernelParams = [
+    "quiet"
+    "splash"
     "intel_iommu=on"
     "vfio-pci.ids=10de:1cbb,10de:0fb9"
   ];
@@ -139,22 +156,6 @@
   };
   virtualisation.spiceUSBRedirection.enable = true;
 
-  # This option defines the first version of NixOS you have installed on this particular machine,
-  # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
-  #
-  # Most users should NEVER change this value after the initial install, for any reason,
-  # even if you've upgraded your system to a new NixOS release.
-  #
-  # This value does NOT affect the Nixpkgs version your packages and OS are pulled from,
-  # so changing it will NOT upgrade your system - see https://nixos.org/manual/nixos/stable/#sec-upgrading for how
-  # to actually do that.
-  #
-  # This value being lower than the current NixOS release does NOT mean your system is
-  # out of date, out of support, or vulnerable.
-  #
-  # Do NOT change this value unless you have manually inspected all the changes it would make to your configuration,
-  # and migrated your data accordingly.
-  #
-  # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
+  # WARNING: DON'T MODIFY!
   system.stateVersion = "25.05"; # Did you read the comment?
 }

@@ -22,6 +22,7 @@
       "tray",
       "wireplumber",
       "battery",
+      "custom/idle_inhibitor",
       "backlight",
       "bluetooth",
       "network"
@@ -85,7 +86,7 @@
       "tooltip-format": "{timeTo} {power}w"
     },
 
-    
+
     "clock": {
       "format": "{:%d/%m %a %H:%M}",
       "tooltip-format": "<tt><small>{calendar}</small></tt>"
@@ -113,9 +114,22 @@
       "format-icons": [
         "󰤯", "󰤟", "󰤢", "󰤥", "󰤨"
       ]
+    },
+    "idle_inhibitor": {
+      "format": "{icon}",
+      "on-click": "dunstify {status}",
+      "format-icons": {
+        "activated": "",
+        "deactivated": ""
+      }
+    },
+    "custom/idle_inhibitor": {
+      "format": "{}",
+      "exec": "$HOME/.config/scripts/check-idle",
+      "on-click": "$HOME/.config/scripts/toggle-idle",
+      "tooltip": false,
+      "signal": 10
     }
-
-
   }
 ]
 

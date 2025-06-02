@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Found from https://www.reddit.com/r/hyprland/comments/1ddjvtm/idle_inhibitor_isnt_working_with_hypridle/
+
+(pidof hypridle && systemctl --user stop hypridle && dunstify -u low "idle off") || (systemctl --user start hypridle && dunstify -u low "idle on")
+kill -SIGRTMIN+10 $(pgrep waybar)

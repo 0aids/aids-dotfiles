@@ -42,6 +42,7 @@
     fortune
     brightnessctl
   ];
+
   programs.mpv.enable = true;
   programs.bat.enable = true;
   programs.direnv = {

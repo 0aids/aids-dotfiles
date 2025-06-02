@@ -125,5 +125,8 @@ button {
     border-bottom: 1px solid @base05;
 }
 
+#custom-idle_inhibitor {
+  min-width:1.2em;
+}
 
 

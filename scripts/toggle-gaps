@@ -9,7 +9,7 @@ gap_line=$(echo "$output" | grep "custom type")
 # Extract the four numbers
 read -r g1 g2 g3 g4 <<<$(echo "$gap_line" | grep -oE '[0-9]+' | xargs)
 
-echo $g1 $g2 $g3 $g4
+# echo $g1 $g2 $g3 $g4
 
 # Check if any of the gaps is greater than 0
 if ((g1 > 1 || g2 > 1 || g3 > 1 || g4 > 1)); then

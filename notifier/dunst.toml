@@ -37,10 +37,10 @@
 #     context = ctrl+shift+period
 
 [urgency_low]
-    timeout = 2
+    timeout = 1
 
 [urgency_normal]
-    timeout = 5
+    timeout = 3
 
 [urgency_critical]
     timeout = 0

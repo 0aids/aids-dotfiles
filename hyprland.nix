@@ -34,6 +34,37 @@
     padding-right = 0;
   };
   services.hypridle.enable = true;
+  services.hypridle.settings = {
+    general = {
+      lock_cmd = "pidof hyprlock || hyprlock"; # avoid starting multiple hyprlock instances.
+      before_sleep_cmd = "loginctl lock-session"; # lock before suspend.
+      after_sleep_cmd = "hyprctl dispatch dpms on"; # to avoid having to press a key twice to turn on the display.
+    };
+
+    listener = [
+      {
+        timeout = 60; # 2.5min.
+        on-timeout = "brightnessctl -s set 40"; # set monitor backlight to minimum, avoid 0 on OLED monitor.
+        on-resume = "brightnessctl -r"; # monitor backlight restore.
+      }
+
+      {
+        timeout = 300; # 5min
+        on-timeout = "loginctl lock-session"; # lock screen when timeout has passed
+      }
+
+      {
+        timeout = 330; # 5.5min
+        on-timeout = "hyprctl dispatch dpms off"; # screen off when timeout has passed
+        on-resume = "hyprctl dispatch dpms on && brightnessctl -r"; # screen on when activity is detected after timeout has fired.
+      }
+
+      {
+        timeout = 1800; # 30min
+        on-timeout = "systemctl suspend"; # suspend pc
+      }
+    ];
+  };
   services.cliphist.enable = true;
   services.dunst.enable = true;
   # services.dunst.settings = builtins.fromTOML (builtins.readFile ./notifier/dunst.toml);
@@ -70,8 +101,8 @@
       word_wrap = true;
     };
     urgency_critical = {timeout = 0;};
-    urgency_low = {timeout = 2;};
-    urgency_normal = {timeout = 5;};
+    urgency_low = {timeout = 1;};
+    urgency_normal = {timeout = 3;};
   };
   # programs.kanshi.enable = true;
   wayland.windowManager.hyprland.enable = true; # enable Hyprland
@@ -167,6 +198,7 @@
       # ''$mainMod CTRL, Z, exec, ~/.config/scripts/toggle-gaps''
       ''$mainMod SHIFT, S, exec, grim -g "$(slurp)" - | wl-copy''
       ''$mainMod, BACKSPACE, exec, ~/.config/scripts/tofi-power-menu''
+      "$mainMod, DELETE, exec, ~/.config/scripts/toggle-idle"
     ];
     bindel = [
       ",XF86AudioRaiseVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ +5% && ~/.config/scripts/audio"
@@ -199,6 +231,7 @@
     ];
 
     exec-once = [
+      "systemctl --user enable --now hyprpolkitagent.service"
       "wl-paste --watch cliphist store"
       "wl-paste --type image --watch cliphist store"
       "dunst"
@@ -229,22 +262,30 @@
 
       background = lib.mkMerge [
         {
-          # path = lib.mkForce "screenshot";
-          # contrast = 0.5;
-          # blur_passes = 2;
-          # blur_size = 8;
-          # vibrancy = 0.1;
-          # vibrancy_darkness = 0.0;
+          path = lib.mkForce "screenshot";
+          contrast = 0.9;
+          noise = 0.4;
+          brightness = 0.4;
+          blur_passes = 2;
+          blur_size = 5;
+          vibrancy = 0.1;
+          vibrancy_darkness = 0.3;
         }
       ];
 
       input-field = lib.mkMerge [
         {
           size = "200, 40";
-          position = "0, -60";
+          position = "0, -80";
           monitor = "";
           rounding = 0;
-          fail_timeout = 200;
+          inner_color = lib.mkForce "rgba(${config.lib.stylix.colors.base00}50)";
+          outer_color = lib.mkForce "rgba(${config.lib.stylix.colors.base00}50)";
+          fail_color = lib.mkForce "rgba(${config.lib.stylix.colors.base08}50)";
+          check_color = lib.mkForce "rgba(${config.lib.stylix.colors.base0D}50)";
+          font_color = lib.mkForce "rgba(${config.lib.stylix.colors.base05}80)";
+          font_family = lib.mkForce "JetBrainsMono Nerd Font";
+          fail_timeout = 150;
           dots_center = true;
           dots_size = 0.2;
           fade_on_empty = false;
@@ -259,9 +300,9 @@
   programs.hyprlock.extraConfig = ''
     label {
       monitor =
-      text = <span foreground='##${config.lib.stylix.colors.base04}'>$TIME</span>
-      font_size = 80
-      font_family = BlexMono Nerd Font
+      text = <span foreground='##${config.lib.stylix.colors.base04}60'><b>$TIME</b></span>
+      font_size = 100
+      font_family = JetBrainsMono Nerd Font
       position = 0, 75
       halign = center
       valign = center
@@ -269,10 +310,10 @@
 
     label {
       # color = "rgba(${config.lib.stylix.colors.base04}1E)"
-      text = cmd[update:100000] echo "<span foreground='##${config.lib.stylix.colors.base04}'>$(date +'%a %D')</span>"
+      text = cmd[update:100000] echo "<span foreground='##${config.lib.stylix.colors.base04}60'>$(date +'%a %D')</span>"
       font_size = 20
-      font_family = BlexMono Nerd Font
-      position = 0, 0
+      font_family = JetBrainsMono Nerd Font
+      position = 0, -15
       halign = center
       valign = center
     }

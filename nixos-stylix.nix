@@ -13,5 +13,10 @@ in {
   stylix =
     sharedStylix
     // {
+      targets = {
+        grub.enable = false;
+        console.enable = false;
+        plymouth.enable = false;
+      };
     };
 }

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Found from https://www.reddit.com/r/hyprland/comments/1ddjvtm/idle_inhibitor_isnt_working_with_hypridle/
 
-pid=$(pgrep hypridle)
-kill -SIGRTMIN+10 $(pgrep waybar)
+pid=$(pidof hypridle)
+# kill -SIGRTMIN+10 "$(pidof waybar)"
 if [[ "$pid" == "" ]]; then echo '󰒳'; else echo '󰒲'; fi

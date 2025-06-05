@@ -383,6 +383,11 @@
       python.dap.enable = true;
 
       markdown.enable = true;
+      markdown.extensions.markview-nvim.enable = true;
+      markdown.lsp.enable = true;
+      markdown.treesitter.enable = true;
+      markdown.format.enable = true;
+      markdown.format.type = "prettierd";
 
       nix.enable = true;
       nix.format.enable = true;

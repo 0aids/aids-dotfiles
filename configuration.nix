@@ -62,6 +62,7 @@
   };
 
   hardware.bluetooth.enable = true;
+  services.upower.enable = true;
   services.blueman.enable = true;
   services.keyd.enable = true;
   services.keyd.keyboards.default.settings = {
@@ -86,6 +87,15 @@
     file
   ];
   fonts.packages = with pkgs; [
+    noto-fonts
+    noto-fonts-cjk-sans
+    noto-fonts-emoji
+    liberation_ttf
+    fira-code
+    fira-code-symbols
+    mplus-outline-fonts.githubRelease
+    dina-font
+    proggyfonts
     nerd-fonts.hack
     nerd-fonts."m+"
     nerd-fonts.tinos
@@ -103,6 +113,19 @@
       PermitRootLogin = "yes";
     };
   };
+
+  services.undervolt = {
+    enable = true;
+    p1 = {
+      window = 1;
+      limit = 8;
+    };
+    p2 = {
+      window = 100;
+      limit = 4;
+    };
+  };
+
   services.tlp.enable = true;
 
   programs.ssh.startAgent = true;
@@ -113,6 +136,27 @@
   programs.hyprland = {
     enable = true;
     xwayland.enable = true;
+  };
+
+  #############
+  # SNAPSHOTS #
+  #############
+  # Remember to add the subvolume .snapshots in the home directory.
+  # Use: btrfs subvolume create .snapshots
+  # Also make sure that its in the home directory, or wherever the directory of the config lies.
+  services.snapper.persistentTimer = true;
+  services.snapper.configs = {
+    home = {
+      SUBVOLUME = "/home";
+      ALLOW_USERS = ["aids"];
+      TIMELINE_CREATE = true;
+      TIMELINE_CLEANUP = true;
+      TIMELINE_LIMIT_HOURLY = 10;
+      TIMELINE_LIMIT_DAILY = 7;
+      TIMELINE_LIMIT_WEEKLY = 3;
+      TIMELINE_LIMIT_MONTHLY = 1;
+      TIMELINE_LIMIT_YEARLY = 0;
+    };
   };
 
   ########
@@ -140,7 +184,7 @@
   users.groups.libvirtd.members = ["aids"];
 
   virtualisation.libvirtd = {
-    enable = true;
+    enable = false;
 
     qemu = {
       package = pkgs.qemu_kvm;

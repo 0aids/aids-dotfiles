@@ -23,6 +23,7 @@
     hrs = "home-manager switch --flake ~/.dotfiles/";
     nrs = "sudo nixos-rebuild switch --flake ~/.dotfiles/";
     cat = "bat";
+    pd = "eval \"$(tmux showenv -s DISPLAY)\"";
   };
 
   home.packages = with pkgs; [
@@ -176,6 +177,7 @@
 
   programs.zoxide.enable = true;
   programs.zoxide.enableBashIntegration = true;
+  programs.zoxide.options = ["--cmd cd"];
 
   programs.tmux = let
     smart_splits = pkgs.tmuxPlugins.mkTmuxPlugin {
@@ -242,6 +244,8 @@
     tabs.position = "top";
     completion.shrink = true;
     url.start_pages = "~/.config/start_page/index.html";
+    completion.min_chars = 5;
+    completion.delay = 200;
   };
   # NOTE: Duck duck go allows for better moving around in the search page.
   programs.qutebrowser.searchEngines = {"DEFAULT" = "https://google.com/search?hl=en&q={}";};
@@ -271,4 +275,6 @@
   };
   # Should come with plugins
   programs.zathura.enable = true;
+
+  programs.emacs.enable = true;
 }

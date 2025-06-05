@@ -115,17 +115,12 @@
         "󰤯", "󰤟", "󰤢", "󰤥", "󰤨"
       ]
     },
-    "idle_inhibitor": {
-      "format": "{icon}",
-      "on-click": "dunstify {status}",
-      "format-icons": {
-        "activated": "",
-        "deactivated": ""
-      }
-    },
     "custom/idle_inhibitor": {
       "format": "{}",
       "exec": "$HOME/.config/scripts/check-idle",
+      "exec-on-event": false,
+      "inteval": "once",
+      "return-type": "text",
       "on-click": "$HOME/.config/scripts/toggle-idle",
       "tooltip": false,
       "signal": 10

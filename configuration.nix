@@ -13,6 +13,13 @@
     # ./nvidia.nix
   ];
 
+  documentation.enable = true;
+  documentation.man.enable = true;
+  documentation.man.generateCaches = true;
+  documentation.doc.enable = true;
+  documentation.dev.enable = true;
+  documentation.info.enable = true;
+  documentation.nixos.enable = true;
   nix.settings.experimental-features = ["nix-command" "flakes"];
   nix.settings.trusted-users = ["root" "aids"];
   boot.loader.grub.device = "nodev";
@@ -85,6 +92,9 @@
     hyprpolkitagent
     pulseaudioFull
     file
+    linux-manual
+    man-pages
+    man-pages-posix
   ];
   fonts.packages = with pkgs; [
     noto-fonts
@@ -118,11 +128,11 @@
     enable = true;
     p1 = {
       window = 1;
-      limit = 8;
+      limit = 100;
     };
     p2 = {
       window = 100;
-      limit = 4;
+      limit = 100;
     };
   };
 

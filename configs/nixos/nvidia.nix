@@ -15,9 +15,9 @@
   config = {
     boot.kernelParams = lib.mkAfter ["nvidia_drm.fbdev=1" "nvidia-drm.modeset=1" "module_blacklist=i915"];
 
-    hardware.opengl = {
+    hardware.graphics = {
       enable = true;
-      driSupport32Bit = true;
+      enable32Bit = true;
     };
 
     environment.systemPackages = with pkgs; [

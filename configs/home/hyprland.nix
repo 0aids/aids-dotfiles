@@ -132,7 +132,7 @@
       "$mainMod, F, fullscreenstate, 0 2"
       "$mainMod, O, setprop, active opaque toggle"
       "$mainMod, T, togglesplit,"
-      "$mainMod, SPACE, exec, pkill tofi-drun || hyprctl dispatch exec \"$( tofi-drun --fuzzy-match=true --drun-launch=true )\""
+      "$mainMod, SPACE, exec, pkill tofi-drun || hyprctl dispatch exec \"$( tofi-drun --fuzzy-match=true)\""
       "$mainMod, V, exec, pkill tofi || cliphist list | tofi | cliphist decode | wl-copy | wl-paste"
       # ''$mainMod CTRL, Z, exec, ~/.config/scripts/toggle-gaps''
       ''$mainMod SHIFT, S, exec, grim -g "$(slurp)" - | wl-copy''

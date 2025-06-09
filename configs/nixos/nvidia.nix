@@ -13,11 +13,10 @@
   };
 
   config = {
-    boot.kernelParams = ["nvidia_drm.fbdev=1" "nvidia-drm.modeset=1" "module_blacklist=i915"];
+    boot.kernelParams = lib.mkAfter ["nvidia_drm.fbdev=1" "nvidia-drm.modeset=1" "module_blacklist=i915"];
 
     hardware.opengl = {
       enable = true;
-      driSupport = true;
       driSupport32Bit = true;
     };
 
@@ -31,7 +30,6 @@
       wgpu-utils
       mesa
       libglvnd
-      nvtop
       nvitop
       libGL
     ];

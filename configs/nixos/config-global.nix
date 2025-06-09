@@ -4,6 +4,7 @@
   pkgs,
   ...
 }: {
+  nixpkgs.config.allowUnfree = true;
   documentation.enable = true;
   documentation.man.enable = true;
   documentation.man.generateCaches = true;

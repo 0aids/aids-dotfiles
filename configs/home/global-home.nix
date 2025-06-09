@@ -27,71 +27,15 @@
   };
 
   home.packages = with pkgs; [
-    ghostscript # Used for previewing pdfs
-    nwg-panel
-    wl-clipboard
-    grim
-    slurp
-    kdePackages.dolphin
     devenv
     cachix
-    xfce.thunar
-    libsixel
-    hyprdim
     tinymist
-    deepin.dde-file-manager
     fortune
     brightnessctl
-    vesktop
   ];
 
-  programs.mpv.enable = true;
   programs.bat.enable = true;
-  programs.direnv = {
-    enable = true;
-    enableBashIntegration = true;
-    nix-direnv.enable = true;
-  };
 
-  i18n.inputMethod = {
-    type = "fcitx5";
-    enable = true;
-    fcitx5.addons = with pkgs; [
-      fcitx5-mozc
-      fcitx5-gtk
-    ];
-    fcitx5.waylandFrontend = true;
-    fcitx5 = {
-      settings.globalOptions = {
-        HotKey = {
-          EnumerateWithTriggerKeys = true;
-          "TriggerKeys/0" = "Control+Space";
-          "EnumerateGroupForwardKeys/0" = "VoidSymbol";
-          "EnumerateGroupBackwardKeys/0" = "VoidSymbol";
-          "ActivateKeys/0" = "VoidSymbol";
-          "DecativateKeys/0" = "VoidSymbol";
-          "PrevPage/0" = "VoidSymbol";
-          "NextPage/0" = "VoidSymbol";
-          "PrevCandidate/0" = "Shift+Tab";
-          "NextCandidate/0" = "Tab";
-          "TogglePreedit/0" = "VoidSymbol";
-        };
-        Behaviour = {
-          ActiveByDefault = false;
-        };
-      };
-      settings.inputMethod = {
-        GroupOrder."0" = "Default";
-        "Groups/0" = {
-          Name = "Default";
-          "Default Layout" = "us";
-          DefaultIM = "mozc";
-        };
-        "Groups/0/Items/0".Name = "keyboard-us";
-        "Groups/0/Items/1".Name = "mozc";
-      };
-    };
-  };
   targets.genericLinux.enable = true;
 
   home.pointerCursor.enable = true;
@@ -105,31 +49,10 @@
     target = ".config/scripts/";
   };
 
-  home.file.vesktop-theme = {
-    enable = true;
-    source = ./discord/system24.css;
-    target = ".config/vesktop/themes/system24.theme.css";
-  };
   home.file.fortune = {
     enable = true;
     source = ./fortune;
     target = ".config/fortune/";
-  };
-
-  programs.waybar = {
-    enable = true;
-    settings = builtins.fromJSON (builtins.readFile ./statusbar/waybar.json);
-    style = lib.mkAfter (builtins.readFile ./statusbar/waybar.css);
-  };
-
-  qt = {
-    # style.name = lib.mkForce "kvantum";
-  };
-
-  home.file.start_page = {
-    enable = true;
-    source = ./start_page;
-    target = ".config/start_page/";
   };
 
   home.sessionVariables = {
@@ -187,7 +110,7 @@
         owner = "mrjones2014";
         repo = "smart-splits.nvim";
         rev = "master";
-        sha256 = "hcGjCWm50LZu2NOxTqxZkZqPEpcn0hfVipeYrDkN/3g=";
+        sha256 = "YkfLXyxwCG7lvPMpGUC93qhOyT6G5K9W+dCDtXQVi+s=";
       };
     };
   in {
@@ -222,43 +145,6 @@
     prefix = "C-a";
   };
 
-  programs.qutebrowser.enable = true;
-  programs.qutebrowser.greasemonkey = [
-    (
-      pkgs.writeText
-      "youtube-block.js"
-      (builtins.readFile ./qutebrowser/youtube-block.js)
-    )
-    (
-      pkgs.writeText
-      "darkmode-blacklist.js"
-      (builtins.readFile ./qutebrowser/darkmode-blacklist.js)
-    )
-  ];
-  programs.qutebrowser.settings = {
-    colors.webpage.darkmode.enabled = true;
-    colors.webpage.bg = "#101010";
-    fonts.default_size = lib.mkForce "7pt";
-    tabs.show = "switching";
-    tabs.show_switching_delay = 2000;
-    tabs.position = "top";
-    completion.shrink = true;
-    url.start_pages = "~/.config/start_page/index.html";
-    completion.min_chars = 5;
-    completion.delay = 200;
-  };
-  # NOTE: Duck duck go allows for better moving around in the search page.
-  programs.qutebrowser.searchEngines = {"DEFAULT" = "https://google.com/search?hl=en&q={}";};
-  programs.qutebrowser.keyBindings = {
-    normal = {
-      "J" = "tab-prev";
-      "K" = "tab-next";
-    };
-    insert = {
-      "<Escape>" = "mode-leave ;; jseval -q document.activeElement.blur()";
-    };
-  };
-
   programs.btop = {
     enable = true;
     settings = {
@@ -273,8 +159,6 @@
     overrideDevices = false;
     overrideFolders = false;
   };
-  # Should come with plugins
-  programs.zathura.enable = true;
 
   programs.emacs.enable = true;
 }

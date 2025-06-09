@@ -22,16 +22,19 @@
     pkgs = import nixpkgs {
       inherit system;
     };
-    # custonNeovim = nvf.lib.neovimConfiguration {
-    #   inherit pkgs;
-    #   modules = [./neovim.nix];
-    # };
   in {
     nixosConfigurations.balls = nixpkgs.lib.nixosSystem {
       system = system;
       modules = [
+        nvf.nixosModules.default
         stylix.nixosModules.stylix
         ./hosts/balls/default.nix
+        home-manager.nixosModules.home-manager
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.users.aids = ./hosts/balls/home.nix;
+        }
       ];
     };
     nixosConfigurations.zooker = nixpkgs.lib.nixosSystem {
@@ -41,27 +44,22 @@
         ./hosts/zooker/default.nix
       ];
     };
-    homeConfigurations = {
-      aids = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        modules = [
-          ./configs/home/home.nix
-          ./configs/home/hyprland.nix
-          stylix.homeModules.stylix
-          ./configs/home/home-stylix.nix
-          nvf.homeManagerModules.default
-          ./configs/home/neovim.nix
-          # {
-          #   home.packages = [
-          #     custonNeovim.neovim
-          #   ];
-          # }
-        ];
-        extraSpecialArgs = {
-          inherit system;
-          inherit inputs;
-        };
-      };
-    };
+    # homeConfigurations = {
+    #   aids = home-manager.lib.homeManagerConfiguration {
+    #     inherit pkgs;
+    #     modules = [
+    #       ./configs/home/home.nix
+    #       ./configs/home/hyprland.nix
+    #       stylix.homeModules.stylix
+    #       ./configs/home/home-stylix.nix
+    #       nvf.homeManagerModules.default
+    #       ./configs/home/neovim.nix
+    #     ];
+    #     extraSpecialArgs = {
+    #       inherit system;
+    #       inherit inputs;
+    #     };
+    #   };
+    # };
   };
 }

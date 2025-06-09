@@ -5,34 +5,6 @@
   inputs,
   ...
 }: {
-  programs.foot.enable = true;
-  programs.foot.settings = {
-    main = {
-      term = "xterm-256color";
-    };
-
-    mouse = {
-      hide-when-typing = "yes";
-    };
-  };
-
-  programs.tofi.enable = true;
-  programs.tofi.settings = {
-    anchor = "bottom";
-    width = "100%";
-    height = 13;
-    horizontal = true;
-    font-size = lib.mkForce 8;
-    prompt-text = "tofi: ";
-    outline-width = 0;
-    border-width = 0;
-    min-input-width = 120;
-    result-spacing = 10;
-    padding-top = 0;
-    padding-bottom = 0;
-    padding-left = 0;
-    padding-right = 0;
-  };
   services.hypridle.enable = true;
   services.hypridle.settings = {
     general = {
@@ -64,45 +36,6 @@
         on-timeout = "systemctl suspend"; # suspend pc
       }
     ];
-  };
-  services.cliphist.enable = true;
-  services.dunst.enable = true;
-  # services.dunst.settings = builtins.fromTOML (builtins.readFile ./notifier/dunst.toml);
-  services.dunst.settings = {
-    global = {
-      alignment = "center";
-      allow_markup = true;
-      bounce_freq = 0;
-      follow = "mouse";
-      format = "<b>%s</b>\n%b";
-      frame_width = 0;
-      height = "(0, 150)";
-      horizontal_padding = 4;
-      idle_threshold = 120;
-      ignore_newline = false;
-      indicate_hidden = true;
-      line_height = 0;
-      progress_bar_height = 5;
-      progress_bar_frame_width = 0;
-      highlight = "#${config.lib.stylix.colors.base05}";
-      markup = "full";
-      monitor = 0;
-      offset = 5;
-      origin = "bottom-center";
-      padding = 2;
-      separator_height = 2;
-      show_age_threshold = 60;
-      sort = true;
-      font = lib.mkForce "Monospace 8";
-      startup_notification = false;
-      sticky_history = true;
-      transparency = 1;
-      width = "(0, 400)";
-      word_wrap = true;
-    };
-    urgency_critical = {timeout = 0;};
-    urgency_low = {timeout = 1;};
-    urgency_normal = {timeout = 3;};
   };
   # programs.kanshi.enable = true;
   wayland.windowManager.hyprland.enable = true; # enable Hyprland

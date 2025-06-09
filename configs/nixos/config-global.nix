@@ -7,7 +7,7 @@
   nixpkgs.config.allowUnfree = true;
   documentation.enable = true;
   documentation.man.enable = true;
-  documentation.man.generateCaches = true;
+  documentation.man.generateCaches = false; #This makes rebuilding take forever.
   documentation.doc.enable = true;
   documentation.dev.enable = true;
   documentation.info.enable = true;

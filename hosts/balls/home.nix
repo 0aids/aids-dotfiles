@@ -10,11 +10,12 @@
     ./../../configs/home/wm-home.nix
     ./../../configs/home/hyprland.nix
   ];
+  # personal config goes here:
 
   wayland.windowManager.hyprland.settings = lib.mkAfter {
     input = lib.mkForce {
       kb_layout = "us";
-      sensitivity = 0.3;
+      sensitivity = -0.3;
       touchpad.natural_scroll = true;
       touchpad.scroll_factor = 0.3;
       touchpad.clickfinger_behavior = true;
@@ -25,5 +26,4 @@
       ",preferred,auto,auto"
     ];
   };
-  # personal config goes here:
 }

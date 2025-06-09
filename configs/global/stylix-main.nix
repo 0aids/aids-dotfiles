@@ -8,7 +8,7 @@
   scheme = "gruvbox-material-dark-hard";
   # scheme = "atelier-forest";
   mode = "dark";
-  wallpaper = ./wall/image.png;
+  wallpaper = ./../../wall/image.png;
   # wallpixels = config.lib.stylix.pixel "base00";
 in {
   enable = true;

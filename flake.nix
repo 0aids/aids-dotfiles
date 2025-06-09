@@ -38,12 +38,12 @@
       aids = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         modules = [
-          ./configs/home.nix
-          ./configs/hyprland.nix
+          ./configs/home/home.nix
+          ./configs/home/hyprland.nix
           stylix.homeModules.stylix
-          ./configs/home-stylix.nix
+          ./configs/home/home-stylix.nix
           nvf.homeManagerModules.default
-          ./configs/neovim.nix
+          ./configs/home/neovim.nix
           # {
           #   home.packages = [
           #     custonNeovim.neovim

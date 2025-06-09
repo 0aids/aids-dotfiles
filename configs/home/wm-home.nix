@@ -17,7 +17,9 @@
     hyprdim
     deepin.dde-file-manager
     vesktop
+    kdePackages.kdeconnect-kde
   ]);
+  services.kdeconnect.enable = true;
   programs.mpv.enable = true;
   programs.direnv = {
     enable = true;

@@ -9,7 +9,6 @@
     ./../../configs/home/home-stylix.nix
     ./../../configs/home/wm-home.nix
     ./../../configs/home/hyprland.nix
-    ./../../configs/home/neovim.nix
   ];
 
   wayland.windowManager.hyprland.settings = lib.mkAfter {

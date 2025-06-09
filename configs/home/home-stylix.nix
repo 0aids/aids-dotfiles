@@ -5,7 +5,7 @@
   inputs,
   ...
 }: let
-  sharedStylix = import ./stylix-main.nix {
+  sharedStylix = import ./../global/stylix-main.nix {
     inherit pkgs;
     inherit config;
   };

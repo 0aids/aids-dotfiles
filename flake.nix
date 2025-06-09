@@ -31,7 +31,6 @@
       system = system;
       modules = [
         stylix.nixosModules.stylix
-        ./nixos-stylix.nix
         ./configuration.nix
       ];
     };
@@ -39,12 +38,12 @@
       aids = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         modules = [
-          ./home.nix
-          ./hyprland.nix
+          ./configs/home.nix
+          ./configs/hyprland.nix
           stylix.homeModules.stylix
-          ./home-stylix.nix
+          ./configs/home-stylix.nix
           nvf.homeManagerModules.default
-          ./neovim.nix
+          ./configs/neovim.nix
           # {
           #   home.packages = [
           #     custonNeovim.neovim

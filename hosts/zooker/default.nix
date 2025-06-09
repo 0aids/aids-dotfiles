@@ -13,6 +13,7 @@
     ./../../configs/nixos/grub-base.nix
     ./../../configs/nixos/grub-extras.nix
     ./../../configs/nixos/nixos-stylix.nix
+        ./../../configs/home/neovim.nix
   ];
   # Enable "Silent boot"
   boot.consoleLogLevel = 2;

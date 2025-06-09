@@ -40,26 +40,16 @@
     nixosConfigurations.zooker = nixpkgs.lib.nixosSystem {
       system = system;
       modules = [
+        nvf.nixosModules.default
         stylix.nixosModules.stylix
         ./hosts/zooker/default.nix
+        home-manager.nixosModules.home-manager
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.users.aids = ./hosts/zooker/home.nix;
+        }
       ];
     };
-    # homeConfigurations = {
-    #   aids = home-manager.lib.homeManagerConfiguration {
-    #     inherit pkgs;
-    #     modules = [
-    #       ./configs/home/home.nix
-    #       ./configs/home/hyprland.nix
-    #       stylix.homeModules.stylix
-    #       ./configs/home/home-stylix.nix
-    #       nvf.homeManagerModules.default
-    #       ./configs/home/neovim.nix
-    #     ];
-    #     extraSpecialArgs = {
-    #       inherit system;
-    #       inherit inputs;
-    #     };
-    #   };
-    # };
   };
 }

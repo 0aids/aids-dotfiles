@@ -7,7 +7,7 @@
   nixpkgs.config.allowUnfree = true;
   documentation.enable = true;
   documentation.man.enable = true;
-  documentation.man.generateCaches = true;
+  documentation.man.generateCaches = false;
   documentation.doc.enable = true;
   documentation.dev.enable = true;
   documentation.info.enable = true;

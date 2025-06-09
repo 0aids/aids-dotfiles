@@ -27,11 +27,18 @@
     #   modules = [./neovim.nix];
     # };
   in {
+    nixosConfigurations.balls = nixpkgs.lib.nixosSystem {
+      system = system;
+      modules = [
+        stylix.nixosModules.stylix
+        ./hosts/balls/default.nix
+      ];
+    };
     nixosConfigurations.zooker = nixpkgs.lib.nixosSystem {
       system = system;
       modules = [
         stylix.nixosModules.stylix
-        ./configuration.nix
+        ./hosts/zooker/default.nix
       ];
     };
     homeConfigurations = {

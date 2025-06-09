@@ -20,7 +20,7 @@
     pulse.enable = true;
     wireplumber.enable = true;
   };
-  environment.systemPackages = lib.mkAFter (with pkgs; [
+  environment.systemPackages = lib.mkAfter (with pkgs; [
     hyprpolkitagent
     pulseaudioFull
   ]);

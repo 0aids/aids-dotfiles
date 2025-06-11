@@ -38,7 +38,7 @@ case $chosen in
   esac
   ;;
 "suspend")
-  loginctl suspend
+  systemctl suspend
   ;;
 "lock")
   hyprlock

@@ -38,4 +38,5 @@
     nerd-fonts.jetbrains-mono
   ];
   programs.kdeconnect.enable = true;
+  programs.chromium.enable = true;
 }

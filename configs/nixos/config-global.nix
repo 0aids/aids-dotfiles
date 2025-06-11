@@ -18,7 +18,18 @@
   services.keyd.enable = true;
   services.keyd.keyboards.default.settings = {
     main = {
-      capslock = "esc";
+      capslock = "overloadt(meta, esc, 150)";
+      s = "overloadt(alt, s, 150)";
+      d = "overloadt(control, d, 150)";
+      f = "overloadt(shift, f, 150)";
+      j = "overloadt(shift, j, 150)";
+      k = "overloadt(control, k, 150)";
+      l = "overloadt(alt, l, 150)";
+      "'" = ''overloadt(meta, ', 150)'';
+      v = "overloadt(altgr, v, 150)";
+      m = "overloadt(altgr, m, 150)";
+      leftshift = "backspace";
+      rightshift = "oneshot(shift)";
     };
   };
 

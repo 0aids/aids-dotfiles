@@ -18,14 +18,14 @@
   services.keyd.enable = true;
   services.keyd.keyboards.default.settings = {
     main = {
-      capslock = "overloadt(meta, esc, 200)";
-      s = "overloadt(alt, s, 200)";
-      d = "overloadt(control, d, 200)";
-      f = "overloadt(shift, f, 200)";
-      j = "overloadt(shift, j, 200)";
-      k = "overloadt(control, k, 200)";
-      l = "overloadt(alt, l, 200)";
-      "'" = ''overloadt(meta, ', 200)'';
+      capslock = ''overloadt2(meta, esc, 180)'';
+      s = ''overloadt2(alt, s, 180)'';
+      d = ''overloadt2(control, d, 180)'';
+      f = ''overloadt2(shift, f, 180)'';
+      j = ''overloadt2(shift, j, 180)'';
+      k = ''overloadt2(control, k, 180)'';
+      l = ''overloadt2(alt, l, 180)'';
+      "'" = ''overloadt2(meta, ', 180)'';
       leftshift = "backspace";
       rightshift = "oneshot(shift)";
     };

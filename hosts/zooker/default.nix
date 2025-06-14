@@ -13,7 +13,7 @@
     ./../../configs/nixos/grub-base.nix
     ./../../configs/nixos/grub-extras.nix
     ./../../configs/nixos/nixos-stylix.nix
-        ./../../configs/home/neovim.nix
+    ./../../configs/home/neovim.nix
   ];
   # Enable "Silent boot"
   boot.consoleLogLevel = 2;
@@ -27,7 +27,7 @@
   services.libinput.enable = true;
 
   services.undervolt = {
-    enable = true;
+    enable = false;
     p1 = {
       window = 1;
       limit = 100;
@@ -37,6 +37,20 @@
       limit = 100;
     };
   };
+  hardware.graphics.enable = true;
+
+  hardware.nvidia = {
+    modesetting.enable = true;
+    powerManagement.enable = false;
+    open = false;
+    nvidiaSettings = true;
+    prime = {
+      sync.enable = true;
+      intelBusId = "PCI:0:2:0";
+      nvidiaBusId = "PCI:1:0:0";
+    };
+  };
+  services.xserver.videoDrivers = ["modesetting" "nvidia"];
 
   services.tlp.enable = true;
 
